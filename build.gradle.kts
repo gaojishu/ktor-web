@@ -2,7 +2,7 @@ plugins {
     alias(libs.plugins.kotlin.jvm)
     alias(ktorLibs.plugins.ktor)
     alias(libs.plugins.kotlin.serialization)
-
+//org.jetbrains.kotlin.plugin.serialization
 
 }
 
@@ -31,9 +31,8 @@ dependencies {
 
 
     //序列化
-    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.11.0")
-    implementation("io.ktor:ktor-server-content-negotiation")
-    implementation("io.ktor:ktor-serialization-kotlinx-json")
+    implementation(ktorLibs.serialization.kotlinx.json)
+    implementation(ktorLibs.server.contentNegotiation)
 
     //全局异常
     implementation(ktorLibs.server.statusPages)
@@ -49,5 +48,11 @@ dependencies {
 
     //
     implementation(ktorLibs.server.websockets)
+
+    //gzip 压缩
+    implementation(ktorLibs.server.compression)
+
+    //反向代理
+    implementation(ktorLibs.server.forwardedHeader)
 }
 

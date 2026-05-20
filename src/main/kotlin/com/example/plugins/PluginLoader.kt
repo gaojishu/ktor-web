@@ -8,4 +8,6 @@ fun Application.installPlugins() {
     configureLogging()
     configureRateLimiting()
     configureRouting()
+    configureForwardedHeader()
+    configureCompression()
 }
