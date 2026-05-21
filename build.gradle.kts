@@ -33,8 +33,7 @@ dependencies {
     testImplementation(kotlin("test"))
     testImplementation(ktorLibs.server.testHost)
 
-
-
+    implementation(ktorLibs.server.requestValidation)
 
     //序列化
     implementation(ktorLibs.serialization.kotlinx.json)
