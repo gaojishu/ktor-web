@@ -71,6 +71,9 @@ dependencies {
     implementation(libs.flyway.database.postgresql)
 
 
+implementation("io.lettuce:lettuce-core:7.5.2.RELEASE")
+implementation("org.apache.commons:commons-pool2:2.13.1")
+
 }
 
 

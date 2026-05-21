@@ -1,0 +1,17 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "request": "launch",
+            "name": "Ktor: Run Server",
+            "mainClass": "com.example.ApplicationKt",
+            "projectName": "ktor-web",
+            "classPaths": [
+                "${workspaceFolder}/build/classes/kotlin/main",
+                "${workspaceFolder}/build/resources/main",
+                "$Runtime"
+            ]
+        }
+    ]
+}

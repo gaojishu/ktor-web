@@ -11,6 +11,7 @@ import org.jooq.impl.DSL
 object DatabaseFactory {
 
     lateinit var dsl: DSLContext
+ private var dataSource: HikariDataSource? = null
 
     fun init(config: ApplicationConfig) {
 
@@ -41,14 +42,14 @@ object DatabaseFactory {
             connectionTimeout =
                 config.property("database.connectionTimeout").getString().toLong()
         }
-        val hikariSource = HikariDataSource(
+        dataSource = HikariDataSource(
             hikariConfig
         )
 
-        runFlyway(hikariSource)
+        dataSource?.let { runFlyway(it) }
 
         dsl = DSL.using(
-            hikariSource,
+            dataSource,
             SQLDialect.POSTGRES
         )
     }
@@ -69,5 +70,10 @@ object DatabaseFactory {
 
         // 执行迁移
         flyway.migrate()
+    }
+
+    fun close() {
+        dataSource?.close()
+        dataSource = null
     }
 }

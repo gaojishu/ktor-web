@@ -18,3 +18,11 @@ database:
   idleTimeout: 30000
   maxLifetime: 1800000
   connectionTimeout: 30000
+
+
+redis:
+  uri: "redis://localhost:6379/0"
+  pool:
+    maxTotal: 20
+    maxIdle: 8
+    minIdle: 2
