@@ -1,9 +1,15 @@
+buildscript {
+    dependencies {
+        // 关键：让 Gradle 插件能找到 Postgres 驱动
+        classpath(libs.flyway.database.postgresql)
+    }
+}
+
 plugins {
     alias(libs.plugins.kotlin.jvm)
     alias(ktorLibs.plugins.ktor)
     alias(libs.plugins.kotlin.serialization)
-//org.jetbrains.kotlin.plugin.serialization
-
+    alias(libs.plugins.flyway)
 }
 
 group = "com.example"
@@ -54,5 +60,37 @@ dependencies {
 
     //反向代理
     implementation(ktorLibs.server.forwardedHeader)
+
+
+    //数据库
+    implementation(libs.hikaricp)
+    implementation(libs.postgresql)
+    implementation(libs.jooq.core)
+
+    //数据库迁移
+    implementation(libs.flyway.core)
+    implementation(libs.flyway.database.postgresql)
+
+
 }
 
+
+// 1. 抽取变量读取逻辑（带默认值防止报错）
+val dbUrl = project.property("db.url").toString()
+val dbUser = project.property("db.user").toString()
+val dbPass = project.property("db.pass").toString()
+val dbDriver = project.property("db.driver").toString()
+val dbSchemas = project.property("db.schemas").toString().split(",").toTypedArray()
+
+
+flyway {
+    url = dbUrl
+    user = dbUser
+    password = dbPass
+    schemas = arrayOf("admin","public")
+    defaultSchema = "admin"
+    baselineOnMigrate = true
+    baselineVersion = "0"
+    cleanDisabled = false
+    locations = arrayOf("filesystem:src/main/resources/db/migration")
+}

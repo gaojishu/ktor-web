@@ -6,3 +6,15 @@ ktor:
   application:
     modules:
       - com.example.ApplicationKt.module
+
+database:
+  jdbcUrl: "jdbc:postgresql://localhost:5432/test"
+  username: "postgres"
+  password: "123321"
+  driverClassName: "org.postgresql.Driver"
+
+  maximumPoolSize: 10
+  minimumIdle: 2
+  idleTimeout: 30000
+  maxLifetime: 1800000
+  connectionTimeout: 30000

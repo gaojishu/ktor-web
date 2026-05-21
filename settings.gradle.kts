@@ -17,3 +17,5 @@ dependencyResolutionManagement {
         create("ktorLibs").from("io.ktor:ktor-version-catalog:3.4.3")
     }
 }
+
+include(":jooq-codegen")
