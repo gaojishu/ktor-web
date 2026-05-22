@@ -8,10 +8,18 @@
         </encoder>
     </appender>
 
+    <!-- 开启 jOOQ 的 SQL 打印（包含绑定的参数） -->
+    <logger name="org.jooq.tools.LoggerListener" level="DEBUG"/>
+
+    <!-- 如果你想看 jOOQ 的一些全局或连接的底层初始化信息（可选） -->
+    <logger name="org.jooq" level="DEBUG"/>
+
     <root level="INFO">
         <appender-ref ref="STDOUT"/>
     </root>
 
     <!-- Ktor 日志 -->
     <logger name="io.ktor" level="INFO"/>
+
+
 </configuration>

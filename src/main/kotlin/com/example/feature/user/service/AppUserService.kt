@@ -6,6 +6,6 @@ class AppUserService(
     private val userRepo: UserRepo,
 ) {
     fun getUser(id: Long) {
-
+        userRepo.getUser()
     }
 }

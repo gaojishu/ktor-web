@@ -12,6 +12,12 @@ plugins {
     alias(libs.plugins.flyway)
 }
 
+sourceSets {
+    main {
+        kotlin.srcDir("build/generated-sources/jooq")
+    }
+}
+
 group = "com.example"
 version = "1.0.0-SNAPSHOT"
 
