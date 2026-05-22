@@ -1,5 +1,13 @@
 <configuration>
 
+    <!-- ===================== -->
+    <!-- 日志存放路径 -->
+    <!-- ===================== -->
+    <property name="LOG_PATH" value="logs"/>
+
+    <!-- ===================== -->
+    <!-- 控制台日志（彩色） -->
+    <!-- ===================== -->
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
             <pattern>
@@ -8,18 +16,91 @@
         </encoder>
     </appender>
 
-    <!-- 开启 jOOQ 的 SQL 打印（包含绑定的参数） -->
-    <logger name="org.jooq.tools.LoggerListener" level="DEBUG"/>
+    <!-- ===================== -->
+    <!-- 全量业务日志（按天滚动） -->
+    <!-- ===================== -->
+    <appender name="FILE_APP" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_PATH}/app.log</file>
 
-    <!-- 如果你想看 jOOQ 的一些全局或连接的底层初始化信息（可选） -->
-    <logger name="org.jooq" level="DEBUG"/>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_PATH}/app.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>30</maxHistory>
+            <totalSizeCap>1GB</totalSizeCap>
+        </rollingPolicy>
 
-    <root level="INFO">
-        <appender-ref ref="STDOUT"/>
-    </root>
+        <encoder>
+            <pattern>
+                %d{yyyy-MM-dd HH:mm:ss.SSS} %-5level [%thread] %logger{36} - %msg%n
+            </pattern>
+        </encoder>
+    </appender>
 
-    <!-- Ktor 日志 -->
+    <!-- ===================== -->
+    <!-- ERROR 单独文件 -->
+    <!-- ===================== -->
+    <appender name="FILE_ERROR" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_PATH}/error.log</file>
+
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>ERROR</level>
+        </filter>
+
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_PATH}/error.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+
+        <encoder>
+            <pattern>
+                %d{yyyy-MM-dd HH:mm:ss.SSS} %-5level [%thread] %logger{36} - %msg%n
+            </pattern>
+        </encoder>
+    </appender>
+
+    <!-- ===================== -->
+    <!-- jOOQ SQL 日志文件 -->
+    <!-- ===================== -->
+    <appender name="FILE_SQL" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_PATH}/sql.log</file>
+
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_PATH}/sql.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+
+        <encoder>
+            <pattern>
+                %d{HH:mm:ss.SSS} SQL - %msg%n
+            </pattern>
+        </encoder>
+    </appender>
+
+    <!-- ===================== -->
+    <!-- logger 配置 -->
+    <!-- ===================== -->
+
+    <!-- Ktor -->
     <logger name="io.ktor" level="INFO"/>
 
+    <!-- jOOQ SQL -->
+    <logger name="org.jooq.tools.LoggerListener" level="DEBUG" additivity="false">
+        <appender-ref ref="FILE_SQL"/>
+        <appender-ref ref="STDOUT"/>
+    </logger>
+
+    <!-- Hikari 连接池 -->
+    <logger name="com.zaxxer.hikari" level="INFO"/>
+
+    <!-- JDBC（可选：打印SQL更底层） -->
+    <logger name="org.jooq" level="INFO"/>
+
+    <!-- ===================== -->
+    <!-- Root logger -->
+    <!-- ===================== -->
+    <root level="INFO">
+        <appender-ref ref="STDOUT"/>
+        <appender-ref ref="FILE_APP"/>
+        <appender-ref ref="FILE_ERROR"/>
+    </root>
 
 </configuration>

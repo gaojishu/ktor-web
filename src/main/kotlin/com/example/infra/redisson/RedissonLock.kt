@@ -1,8 +1,11 @@
 package com.example.infra.redisson
 
-object RedissonLock {
+import org.redisson.api.RedissonClient
+import java.util.concurrent.TimeUnit
 
-    private val client get() = RedissonManager.getClient()
+class RedissonLock(
+    private val client: RedissonClient
+) {
 
     fun <T> withLock(
         key: String,
@@ -10,12 +13,13 @@ object RedissonLock {
         leaseTimeMs: Long = 30000,
         block: () -> T
     ): T {
+
         val lock = client.getLock(key)
 
         val success = if (waitTimeMs > 0) {
-            lock.tryLock(waitTimeMs, leaseTimeMs, java.util.concurrent.TimeUnit.MILLISECONDS)
+            lock.tryLock(waitTimeMs, leaseTimeMs, TimeUnit.MILLISECONDS)
         } else {
-            lock.tryLock(leaseTimeMs, java.util.concurrent.TimeUnit.MILLISECONDS)
+            lock.tryLock(leaseTimeMs, TimeUnit.MILLISECONDS)
         }
 
         if (!success) {
