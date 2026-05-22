@@ -1,4 +1,4 @@
-package com.example.database
+package com.example.infra.database
 
 import org.jooq.DSLContext
 import org.jooq.impl.DSL

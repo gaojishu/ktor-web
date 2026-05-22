@@ -1,13 +1,11 @@
 package com.example.plugins
 
-import com.example.tool.dto.ApiResult
+import com.example.infra.dto.ApiResult
 import io.ktor.http.HttpStatusCode
 import io.ktor.server.application.*
-import io.ktor.server.plugins.ContentTransformationException
 import io.ktor.server.plugins.requestvalidation.RequestValidationException
 import io.ktor.server.plugins.statuspages.StatusPages
 import io.ktor.server.response.respond
-import kotlinx.serialization.SerializationException
 
 class BusinessException(message: String = "未知错误", val errorCode: Int = 0) : RuntimeException(message)
 

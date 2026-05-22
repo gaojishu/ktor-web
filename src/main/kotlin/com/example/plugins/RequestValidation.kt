@@ -1,13 +1,12 @@
-package com.example.modules
+package com.example.plugins
 
-import com.example.modules.auth.validation.AuthValidation
+import com.example.feature.app.user.app.AppUserValidation
 import io.ktor.server.application.Application
 import io.ktor.server.application.install
 import io.ktor.server.plugins.requestvalidation.RequestValidation
 
-fun Application.installModules() {
-
+fun Application.configureRequestValidation() {
     install(RequestValidation) {
-        AuthValidation.register(this)
+        AppUserValidation.register(this)
     }
 }

@@ -5,6 +5,10 @@ postgresql = "42.7.11"
 jooq = "3.21.4"
 hikaricp = "7.0.2"
 flywaydb = "12.6.1"
+lettuce = "7.5.2.RELEASE"
+commonsPool2 = "2.13.1"
+redisson = "4.4.0"
+koin = "4.2.1"
 
 [libraries]
 logback-classic = { module = "ch.qos.logback:logback-classic", version.ref = "logback" }
@@ -15,9 +19,15 @@ jooq-meta = { group = "org.jooq", name = "jooq-meta", version.ref = "jooq" }
 jooq-codegen = { group = "org.jooq", name = "jooq-codegen", version.ref = "jooq" }
 jooq-core = {group = "org.jooq", name = "jooq", version.ref = "jooq"}
 hikaricp = {group = "com.zaxxer", name = "HikariCP", version.ref = "hikaricp"}
+lettuce-core = {group = "io.lettuce", name = "lettuce-core", version.ref = "lettuce"}
 
 flyway-core = {group = "org.flywaydb", name = "flyway-core", version.ref = "flywaydb"}
 flyway-database-postgresql = {group = "org.flywaydb", name = "flyway-database-postgresql", version.ref = "flywaydb"}
+
+commons-pool2 = { group = "org.apache.commons", name = "commons-pool2", version.ref = "commonsPool2" }
+redisson = { group = "org.redisson", name = "redisson", version.ref = "redisson" }
+koin-ktor = { group = "io.insert-koin", name = "koin-ktor", version.ref = "koin" }
+koin-logger-slf4j = { group = "io.insert-koin", name = "koin-logger-slf4j", version.ref = "koin" }
 
 [plugins]
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }

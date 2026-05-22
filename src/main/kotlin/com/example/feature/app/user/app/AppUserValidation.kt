@@ -1,13 +1,14 @@
-package com.example.modules.auth.validation
+package com.example.feature.app.user.app
 
-import com.example.modules.auth.dto.AuthLoginReq
-import io.ktor.server.plugins.requestvalidation.*
+import io.ktor.server.plugins.requestvalidation.RequestValidationConfig
+import io.ktor.server.plugins.requestvalidation.ValidationResult
 
-object AuthValidation {
+
+object AppUserValidation {
 
     fun register(config: RequestValidationConfig) {
 
-        config.validate<AuthLoginReq> { req ->
+        config.validate<AppUserReq> { req ->
             val errors = mutableListOf<String>()
 
             if (req.username.isNullOrBlank()) {

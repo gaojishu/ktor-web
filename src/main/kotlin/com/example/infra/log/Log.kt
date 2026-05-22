@@ -1,4 +1,4 @@
-package com.example.utils
+package com.example.infra.log
 
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory

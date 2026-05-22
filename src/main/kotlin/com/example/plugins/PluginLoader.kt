@@ -10,4 +10,7 @@ fun Application.installPlugins() {
     configureRouting()
     configureForwardedHeader()
     configureCompression()
+    configureKoinModules()
+    configureRequestValidation()
+    configureWebSockets()
 }

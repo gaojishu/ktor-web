@@ -33,6 +33,7 @@ dependencies {
     testImplementation(kotlin("test"))
     testImplementation(ktorLibs.server.testHost)
 
+    //验证器
     implementation(ktorLibs.server.requestValidation)
 
     //序列化
@@ -60,6 +61,9 @@ dependencies {
     //反向代理
     implementation(ktorLibs.server.forwardedHeader)
 
+    //websocket
+    implementation(ktorLibs.server.websockets)
+
 
     //数据库
     implementation(libs.hikaricp)
@@ -70,9 +74,15 @@ dependencies {
     implementation(libs.flyway.core)
     implementation(libs.flyway.database.postgresql)
 
+    //redis
+    implementation(libs.lettuce.core)
+    implementation(libs.commons.pool2)
+    implementation(libs.redisson)
 
-implementation("io.lettuce:lettuce-core:7.5.2.RELEASE")
-implementation("org.apache.commons:commons-pool2:2.13.1")
+    //di
+    implementation(libs.koin.ktor)
+    implementation(libs.koin.logger.slf4j)
+
 
 }
 

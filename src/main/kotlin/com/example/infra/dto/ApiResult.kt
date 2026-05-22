@@ -1,6 +1,5 @@
-package com.example.tool.dto
+package com.example.infra.dto
 
-import kotlinx.serialization.Contextual
 import kotlinx.serialization.Serializable
 
 @Serializable

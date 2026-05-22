@@ -1,4 +1,4 @@
-package com.example.database
+package com.example.infra.database
 
 import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.HikariDataSource
@@ -8,10 +8,10 @@ import org.jooq.DSLContext
 import org.jooq.SQLDialect
 import org.jooq.impl.DSL
 
-object DatabaseFactory {
+object DatabaseManager {
 
     lateinit var dsl: DSLContext
- private var dataSource: HikariDataSource? = null
+    private var dataSource: HikariDataSource? = null
 
     fun init(config: ApplicationConfig) {
 

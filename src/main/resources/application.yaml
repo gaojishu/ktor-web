@@ -21,8 +21,15 @@ database:
 
 
 redis:
-  uri: "redis://localhost:6379/0"
+  host: 127.0.0.1
+  port: 6379
+  password: null
+  database: 0
+
+  timeout: 10000
+  connectTimeout: 10000
+
   pool:
-    maxTotal: 20
-    maxIdle: 8
+    maxTotal: 64
+    maxIdle: 10
     minIdle: 2

@@ -1,8 +1,9 @@
 package com.example
 
-import com.example.database.DatabaseFactory
-import com.example.database.RedisPoolManager
-import com.example.modules.installModules
+import com.example.feature.installRoutes
+import com.example.infra.database.DatabaseManager
+import com.example.infra.redisson.RedissonManager
+import com.example.infra.redis.RedisManager
 import com.example.plugins.installPlugins
 import io.ktor.server.application.*
 
@@ -11,17 +12,19 @@ fun main(args: Array<String>) {
 }
 
 fun Application.module() {
-    //初始化数据库连接池
-    DatabaseFactory.init(environment.config)
+    //初始化数据库连接
+    DatabaseManager.init(environment.config)
 
-    //初始化redis连接池
-    RedisPoolManager.init(environment.config)
+    //初始化redis连接
+    RedisManager.init(environment.config)
+    RedissonManager.init(environment.config)
 
     installPlugins()
-    installModules()
+    installRoutes()
 
     monitor.subscribe(ApplicationStopping) {
-        DatabaseFactory.close()
-        RedisPoolManager.close()
+        DatabaseManager.close()
+        RedisManager.close()
+        RedissonManager.close()
     }
 }

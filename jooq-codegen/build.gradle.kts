@@ -18,7 +18,7 @@ dependencies {
 //    // jOOQ 插件及其代码生成核心
     implementation(libs.postgresql)
 
-//    //implementation(libs.jooq.codegen.gradle)
+    //implementation(libs.jooq.codegen.gradle)
     implementation(libs.jooq.meta)
     implementation(libs.jooq.codegen)
 }
