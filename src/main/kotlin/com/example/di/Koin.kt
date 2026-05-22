@@ -1,7 +1,7 @@
 package com.example.di
 
-import com.example.feature.app.user.UserRepo
-import com.example.feature.app.user.app.AppUserService
+import com.example.feature.user.repo.UserRepo
+import com.example.feature.user.service.AppUserService
 import com.example.infra.database.databaseKoinModule
 import org.koin.dsl.module
 

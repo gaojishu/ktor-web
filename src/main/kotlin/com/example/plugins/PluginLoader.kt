@@ -7,7 +7,7 @@ fun Application.installPlugins() {
     configureException()
     configureLogging()
     configureRateLimiting()
-    configureRouting()
+
     configureForwardedHeader()
     configureCompression()
     configureKoinModules()

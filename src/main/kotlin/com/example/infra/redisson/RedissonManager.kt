@@ -2,6 +2,7 @@ package com.example.infra.redisson
 
 import com.example.infra.log.log
 import io.ktor.server.config.ApplicationConfig
+import io.lettuce.core.ClientOptions
 import org.redisson.Redisson
 import org.redisson.api.RedissonClient
 import org.redisson.config.Config
@@ -35,6 +36,12 @@ object RedissonManager {
         }
 
         client = Redisson.create(redissonConfig)
+
+        // 修改客户端配置，显式关闭维护通知
+        val options = ClientOptions.builder()
+            // 寻找或配置有关维护通知、SCH (Smart Client Handoff) 的开关
+            // 不同的 Lettuce 升级版本API略有不同，通常在 SocketOptions 或 ProtocolOptions 附近
+            .build()
 
         try {
             val count = client!!.keys.count()

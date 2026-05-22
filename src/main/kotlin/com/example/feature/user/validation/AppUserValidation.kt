@@ -1,8 +1,8 @@
-package com.example.feature.app.user.app
+package com.example.feature.user.validation
 
+import com.example.feature.user.dto.AppUserReq
 import io.ktor.server.plugins.requestvalidation.RequestValidationConfig
 import io.ktor.server.plugins.requestvalidation.ValidationResult
-
 
 object AppUserValidation {
 

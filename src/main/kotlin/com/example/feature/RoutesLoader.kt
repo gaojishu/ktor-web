@@ -1,6 +1,6 @@
 package com.example.feature
 
-import com.example.feature.app.user.app.userModule
+import com.example.feature.user.userModule
 import io.ktor.server.application.Application
 import io.ktor.server.response.respondText
 import io.ktor.server.routing.get

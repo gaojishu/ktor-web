@@ -1,5 +1,6 @@
 package com.example.plugins
 
+import com.example.infra.log.log
 import io.ktor.server.application.*
 import io.ktor.server.routing.routing
 import io.ktor.server.websocket.*
@@ -18,7 +19,7 @@ fun Application.configureWebSockets() {
 
     routing {
         webSocket("/ws") {
-            application.environment.log.info("WebSocket 🟢 客户端已连接")
+            log.info("WebSocket 🟢 客户端已连接")
             for (frame in incoming) {
                 if (frame is Frame.Text) {
                     val text = frame.readText()

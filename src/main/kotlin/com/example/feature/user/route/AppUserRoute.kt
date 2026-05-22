@@ -1,5 +1,6 @@
-package com.example.feature.app.user.app
+package com.example.feature.user.route
 
+import com.example.feature.user.service.AppUserService
 import com.example.infra.dto.ApiResult
 import io.ktor.server.plugins.ratelimit.RateLimitName
 import io.ktor.server.plugins.ratelimit.rateLimit
@@ -8,7 +9,7 @@ import io.ktor.server.response.respond
 import org.koin.ktor.ext.inject
 import kotlin.getValue
 
-fun Route.userRoute(
+fun Route.appUserRoute(
 
 ) {
     val appUserService by inject<AppUserService>()

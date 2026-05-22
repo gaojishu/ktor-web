@@ -1,4 +1,4 @@
-package com.example.feature.app.user
+package com.example.feature.user.repo
 
 import org.jooq.DSLContext
 
