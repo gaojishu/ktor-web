@@ -47,29 +47,23 @@ dependencies {
 
     //验证器
     implementation(ktorLibs.server.requestValidation)
-
     //序列化
     implementation(ktorLibs.serialization.kotlinx.json)
     implementation(ktorLibs.server.contentNegotiation)
-
     //全局异常
     implementation(ktorLibs.server.statusPages)
-
     //日志
     implementation(ktorLibs.server.callLogging)
-
     //限流
     implementation(ktorLibs.server.rateLimit)
-
     //gzip 压缩
     implementation(ktorLibs.server.compression)
-
     //反向代理
     implementation(ktorLibs.server.forwardedHeader)
-
     //websocket
     implementation(ktorLibs.server.websockets)
-
+    //jwt
+    implementation(ktorLibs.server.auth.jwt)
 
     //数据库
     implementation(libs.hikaricp)
