@@ -1,6 +1,5 @@
 buildscript {
     dependencies {
-        // 关键：让 Gradle 插件能找到 Postgres 驱动
         classpath(libs.flyway.database.postgresql)
     }
 }
@@ -12,20 +11,16 @@ plugins {
     alias(libs.plugins.flyway)
 }
 
-sourceSets {
-    main {
-        resources {
-            srcDir("src/main/resources")
-        }
+
+tasks.shadowJar {
+    mergeServiceFiles{
+        duplicatesStrategy = DuplicatesStrategy.INCLUDE
     }
 }
 
+
 sourceSets {
     main {
-        resources {
-            srcDirs("src/main/resources")
-        }
-
         kotlin.srcDir("build/generated-sources/jooq")
     }
 }
@@ -41,7 +36,6 @@ kotlin {
     jvmToolchain(21)
 }
 dependencies {
-    implementation(ktorLibs.server.config.yaml)
     implementation(ktorLibs.server.core)
     implementation(ktorLibs.server.cors)
     implementation(ktorLibs.server.netty)
@@ -64,14 +58,8 @@ dependencies {
     //日志
     implementation(ktorLibs.server.callLogging)
 
-    //压缩
-    implementation(ktorLibs.server.compression)
-
     //限流
     implementation(ktorLibs.server.rateLimit)
-
-    //
-    implementation(ktorLibs.server.websockets)
 
     //gzip 压缩
     implementation(ktorLibs.server.compression)
@@ -104,6 +92,15 @@ dependencies {
 
 }
 
+
+tasks.register<JavaExec>("codegen") {
+    description = "jooq codegen"
+    group = "build"
+
+    classpath = project(":jooq-codegen").sourceSets["main"].runtimeClasspath
+
+    mainClass.set("com.example.codegen.CodegenMainKt")
+}
 
 // 1. 抽取变量读取逻辑（带默认值防止报错）
 val dbUrl = project.property("db.url").toString()

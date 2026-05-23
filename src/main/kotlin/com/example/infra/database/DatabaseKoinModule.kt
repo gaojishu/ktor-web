@@ -46,7 +46,7 @@ fun databaseKoinModule(config: ApplicationConfig): Module = module {
 
         Flyway.configure()
             .dataSource(ds)
-            .locations("db/migration")
+            .locations("db/migration/v10")
             .schemas(*schemas.toTypedArray())
             .baselineOnMigrate(true)
             .baselineVersion("0")
