@@ -14,6 +14,18 @@ plugins {
 
 sourceSets {
     main {
+        resources {
+            srcDir("src/main/resources")
+        }
+    }
+}
+
+sourceSets {
+    main {
+        resources {
+            srcDirs("src/main/resources")
+        }
+
         kotlin.srcDir("build/generated-sources/jooq")
     }
 }
@@ -105,8 +117,8 @@ flyway {
     url = dbUrl
     user = dbUser
     password = dbPass
-    schemas = arrayOf("admin","public")
-    defaultSchema = "admin"
+    schemas = dbSchemas
+    defaultSchema = dbSchemas.first()
     baselineOnMigrate = true
     baselineVersion = "0"
     cleanDisabled = false

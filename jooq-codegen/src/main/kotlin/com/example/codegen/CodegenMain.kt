@@ -33,7 +33,14 @@ fun main() {
 
     val schemasList = schemas
         .split(",")
-        .map { SchemaMappingType().withInputSchema(it.trim()) }
+        .map { it.trim() }
+        .map { schema ->
+            if (schema == "public") {
+                SchemaMappingType().withInputSchema(schema).withOutputSchemaToDefault(true)
+            } else {
+                SchemaMappingType().withInputSchema(schema)
+            }
+        }
 
     // 3. 修正输出目录：应该生成到 jooq-codegen 模块内部的 build 目录中
     val outputDir = userDir.resolve("build/generated-sources/jooq").absoluteFile

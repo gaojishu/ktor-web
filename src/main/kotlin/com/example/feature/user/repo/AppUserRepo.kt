@@ -1,14 +1,14 @@
 package com.example.feature.user.repo
 
-import com.example.jooq.generate.admin.tables.references.ADMIN_
+import com.example.jooq.generate.tables.references.ADMIN
 import org.jooq.DSLContext
 
-class UserRepo(
+class AppUserRepo(
     private val dsl: DSLContext
 ) {
 
     fun getUser(){
-        dsl.selectFrom(ADMIN_)
+        dsl.selectFrom(ADMIN)
             .limit(1)
             .fetchOne()
     }

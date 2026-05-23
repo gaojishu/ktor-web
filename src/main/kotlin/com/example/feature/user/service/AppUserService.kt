@@ -1,11 +1,11 @@
 package com.example.feature.user.service
 
-import com.example.feature.user.repo.UserRepo
+import com.example.feature.user.repo.AppUserRepo
 
 class AppUserService(
-    private val userRepo: UserRepo,
+    private val appUserRepo: AppUserRepo,
 ) {
     fun getUser(id: Long) {
-        userRepo.getUser()
+        appUserRepo.getUser()
     }
 }

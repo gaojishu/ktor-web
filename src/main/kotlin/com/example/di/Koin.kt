@@ -1,6 +1,6 @@
 package com.example.di
 
-import com.example.feature.user.repo.UserRepo
+import com.example.feature.user.repo.AppUserRepo
 import com.example.feature.user.service.AppUserService
 import com.example.infra.database.databaseKoinModule
 import com.example.infra.redis.redisKoinModule
@@ -14,7 +14,7 @@ val allModules = { config: ApplicationConfig ->
         redisKoinModule(config),
         redissonKoinModule(config),
         module {
-            single { UserRepo(get()) }
+            single { AppUserRepo(get()) }
         },
         module {
             single { AppUserService(get()) }

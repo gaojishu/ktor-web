@@ -42,11 +42,12 @@ fun databaseKoinModule(config: ApplicationConfig): Module = module {
      */
     single(createdAtStart = true) {
         val ds = get<HikariDataSource>()
+        val schemas = config.property("database.schemas").getList()
 
         Flyway.configure()
             .dataSource(ds)
             .locations("db/migration")
-            .schemas("public","admin") // 建议单 schema
+            .schemas(*schemas.toTypedArray())
             .baselineOnMigrate(true)
             .baselineVersion("0")
             .outOfOrder(false)
