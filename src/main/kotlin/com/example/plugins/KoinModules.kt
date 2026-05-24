@@ -7,8 +7,7 @@ import io.ktor.server.application.Application
 import io.ktor.server.application.ApplicationStopping
 import io.ktor.server.application.install
 import io.ktor.server.application.log
-import io.lettuce.core.api.StatefulRedisConnection
-import org.apache.commons.pool2.impl.GenericObjectPool
+import io.lettuce.core.RedisClient
 import org.flywaydb.core.Flyway
 import org.koin.ktor.ext.get
 import org.koin.ktor.plugin.Koin
@@ -33,7 +32,7 @@ fun Application.configureKoinModules() {
     // 同步非惰性拉取，打通启动期物理 TCP 连接
     val db = this.get<HikariDataSource>()
     this.get<Flyway>()
-    val redis = this.get<GenericObjectPool<StatefulRedisConnection<String, String>>>()
+    val redis = this.get<RedisClient>()
     this.get<RedisInitMarker>()
     val redisson = this.get<RedissonClient>()
 

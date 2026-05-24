@@ -19,3 +19,4 @@ import org.koin.core.annotation.Module
     ]
 )
 class AppModule
+
