@@ -30,7 +30,7 @@ class RedissonModule {
 
         val configObj = Config().apply {
             if (!password.isNullOrBlank()) {
-                this.useSingleServer().password = password
+                this.password = password
             }
 
             useSingleServer().apply {
