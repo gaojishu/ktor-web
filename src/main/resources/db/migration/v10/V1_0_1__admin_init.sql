@@ -13,8 +13,8 @@ CREATE TABLE IF NOT EXISTS "public"."admin" (
     "nickname" VARCHAR(55),                            -- 昵称
     "email" VARCHAR(55),                               -- 邮箱
     "mobile" VARCHAR(20),                              -- 手机号
-    "permission_key" JSON,                             -- 权限键集合
-    "disabled_status" INT2 NOT NULL DEFAULT 0          -- 禁用状态（0 正常，1 禁用）
+    "permission_key" TEXT[],                             -- 权限键集合
+    "status" INT4 NOT NULL DEFAULT 0          -- 禁用状态（0 正常，1 禁用）
 );
 
 CREATE UNIQUE INDEX IF NOT EXISTS "uk_admin_admin_username" ON "public"."admin" ("username");
@@ -30,7 +30,7 @@ CREATE TABLE IF NOT EXISTS "public"."permission" (
     "name" VARCHAR(55) NOT NULL,                         -- 权限名称
     "code" VARCHAR(100),                                 -- 权限编码
     "key" VARCHAR(1000) NOT NULL DEFAULT '',           -- 权限路径键
-    "type" INT2 NOT NULL DEFAULT 1,                      -- 权限类型（1 菜单，2 按钮）
+    "type" INT4 NOT NULL DEFAULT 1,                      -- 权限类型（1 菜单，2 按钮）
     "level" INT4 NOT NULL,                               -- 权限层级
     "path" VARCHAR(100),                                 -- 路由路径
     "icon" VARCHAR(100),                                 -- 图标

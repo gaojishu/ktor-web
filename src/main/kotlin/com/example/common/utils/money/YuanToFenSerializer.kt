@@ -1,4 +1,4 @@
-package com.example.infra.money
+package com.example.common.utils.money
 
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.builtins.serializer

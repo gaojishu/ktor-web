@@ -1,5 +1,6 @@
 package com.example.codegen
 
+import com.example.codegen.config.AdminJooqConfig
 import org.jooq.meta.jaxb.*
 import java.io.File
 import java.util.Properties
@@ -69,6 +70,9 @@ fun main() {
                             |.*halfvec.*
                             |.*vector.*
                             """.trimIndent()
+                        )
+                        .withForcedTypes(
+                            *AdminJooqConfig.forcedTypes.toTypedArray(),
                         )
                 )
                 .withGenerate(

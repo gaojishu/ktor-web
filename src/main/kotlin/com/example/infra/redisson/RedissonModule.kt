@@ -1,18 +1,22 @@
 package com.example.infra.redisson
 
-import com.example.infra.log.log
 import io.ktor.server.config.ApplicationConfig
-import org.koin.core.module.Module
-import org.koin.dsl.module
-import org.koin.dsl.onClose
+import org.koin.core.annotation.Module
+import org.koin.core.annotation.Single
 import org.redisson.Redisson
 import org.redisson.api.RedissonClient
 import org.redisson.config.Config
 
-fun redissonKoinModule(config: ApplicationConfig): Module = module {
+@Module
+class RedissonModule {
 
-    single<RedissonClient>(createdAtStart = true) {
-
+    /**
+     * RedissonClient（全局单例）
+     * 🎯 核心更正：显式指定 binds = [RedissonClient::class]
+     * 这样在 Koin 容器执行 stopKoin() 时，会自动将其作为生命周期托管对象
+     */
+    @Single(createdAtStart = true, binds = [RedissonClient::class])
+    fun provideRedissonClient(config: ApplicationConfig): RedissonClient {
         val host = config.property("redis.host").getString()
         val port = config.property("redis.port").getString().toInt()
         val dbIndex = config.property("redis.database").getString().toInt()
@@ -25,7 +29,6 @@ fun redissonKoinModule(config: ApplicationConfig): Module = module {
         val minIdle = config.property("redis.pool.minIdle").getString().toInt()
 
         val configObj = Config().apply {
-
             if (!password.isNullOrBlank()) {
                 this.useSingleServer().password = password
             }
@@ -39,10 +42,6 @@ fun redissonKoinModule(config: ApplicationConfig): Module = module {
                 connectionMinimumIdleSize = minIdle
             }
         }
-
-        Redisson.create(configObj)
-    }.onClose {
-        log.info("💥 Redisson shutdown")
-        it?.shutdown()
+        return Redisson.create(configObj)
     }
 }

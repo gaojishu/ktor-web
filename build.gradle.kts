@@ -9,6 +9,7 @@ plugins {
     alias(ktorLibs.plugins.ktor)
     alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.flyway)
+    id("io.insert-koin.compiler.plugin") version "1.0.0"
 }
 
 
@@ -82,6 +83,9 @@ dependencies {
     //di
     implementation(libs.koin.ktor)
     implementation(libs.koin.logger.slf4j)
+    implementation(libs.koin.annotations)
+
+    //ksp(libs.koin.ksp.compiler)
 
 
 }

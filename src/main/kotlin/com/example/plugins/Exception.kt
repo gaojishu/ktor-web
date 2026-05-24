@@ -1,6 +1,6 @@
 package com.example.plugins
 
-import com.example.infra.dto.ApiResult
+import com.example.common.dto.ApiResult
 import io.ktor.http.HttpStatusCode
 import io.ktor.server.application.*
 import io.ktor.server.plugins.requestvalidation.RequestValidationException

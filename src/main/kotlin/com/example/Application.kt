@@ -12,7 +12,10 @@ fun main(args: Array<String>) {
 fun Application.module() {
     installPlugins()
     installRoutes()
-    monitor.subscribe(ApplicationStopping) {
-        stopKoin()
-    }
+
+//    monitor.subscribe(ApplicationStopping) {
+//        //stopKoin()
+//        org.koin.mp.KoinPlatform.stopKoin()
+//
+//    }
 }

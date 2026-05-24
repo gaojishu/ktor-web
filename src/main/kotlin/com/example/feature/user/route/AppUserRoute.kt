@@ -1,7 +1,7 @@
 package com.example.feature.user.route
 
 import com.example.feature.user.service.AppUserService
-import com.example.infra.dto.ApiResult
+import com.example.common.dto.ApiResult
 import io.ktor.server.plugins.ratelimit.RateLimitName
 import io.ktor.server.plugins.ratelimit.rateLimit
 import io.ktor.server.routing.*

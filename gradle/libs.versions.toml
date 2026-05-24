@@ -9,6 +9,7 @@ lettuce = "7.5.2.RELEASE"
 commonsPool2 = "2.13.1"
 redisson = "4.4.0"
 koin = "4.2.1"
+ksp = "2.3.1"
 
 [libraries]
 logback-classic = { module = "ch.qos.logback:logback-classic", version.ref = "logback" }
@@ -28,13 +29,18 @@ commons-pool2 = { group = "org.apache.commons", name = "commons-pool2", version.
 redisson = { group = "org.redisson", name = "redisson", version.ref = "redisson" }
 koin-ktor = { group = "io.insert-koin", name = "koin-ktor", version.ref = "koin" }
 koin-logger-slf4j = { group = "io.insert-koin", name = "koin-logger-slf4j", version.ref = "koin" }
+# annotations
+koin-annotations = { module = "io.insert-koin:koin-annotations", version.ref = "koin" }
+
+# ksp compiler
+koin-ksp-compiler = { module = "io.insert-koin:koin-ksp-compiler", version.ref = "ksp" }
 
 [plugins]
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
 
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
-
+ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 
 jooq-codegen = { id = "org.jooq.jooq-codegen-gradle", version.ref = "jooq" }
 flyway = { id = "org.flywaydb.flyway", version.ref = "flywaydb" }

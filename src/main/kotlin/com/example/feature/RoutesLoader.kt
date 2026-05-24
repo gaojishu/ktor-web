@@ -1,5 +1,6 @@
 package com.example.feature
 
+import com.example.feature.admin.admin.route.adminRoute
 import com.example.feature.user.userModule
 import io.ktor.server.application.Application
 import io.ktor.server.response.respondText
@@ -19,7 +20,7 @@ fun Application.installRoutes() {
         }
 
         route("/api/admin") {
-
+            adminRoute()
         }
     }
 

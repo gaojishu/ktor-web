@@ -1,6 +1,6 @@
 package com.example.plugins
 
-import com.example.infra.log.log
+import com.example.common.utils.log.log
 import io.ktor.server.application.*
 import io.ktor.server.routing.routing
 import io.ktor.server.websocket.*

@@ -8,9 +8,8 @@ fun Application.installPlugins() {
     configureSerialization()
     configureException()
     configureRateLimiting()
-
     configureCompression()
-    configureKoinModules()
     configureRequestValidation()
     configureWebSockets()
+    configureKoinModules()
 }

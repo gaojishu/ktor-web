@@ -7,17 +7,19 @@ import org.flywaydb.core.Flyway
 import org.jooq.DSLContext
 import org.jooq.SQLDialect
 import org.jooq.impl.DSL
-import org.koin.core.module.Module
-import org.koin.dsl.module
-import org.koin.dsl.onClose
+import org.jooq.impl.DefaultConfiguration
+import org.koin.core.annotation.Module
+import org.koin.core.annotation.Single
 
-fun databaseKoinModule(config: ApplicationConfig): Module = module {
+@Module
+class DatabaseModule {
 
     /**
      * Hikari DataSource（交给 Koin 管生命周期）
+     * createdAtStart = true 对应注解版 @Single(createdAtStart = true)
      */
-    single<HikariDataSource>(createdAtStart = true) {
-
+    @Single(createdAtStart = true)
+    fun provideDataSource(config: ApplicationConfig): HikariDataSource {
         val hikariConfig = HikariConfig().apply {
             jdbcUrl = config.property("database.jdbcUrl").getString()
             username = config.property("database.username").getString()
@@ -31,35 +33,39 @@ fun databaseKoinModule(config: ApplicationConfig): Module = module {
             maxLifetime = config.propertyOrNull("database.maxLifetime")?.getString()?.toLong() ?: 1800000
             connectionTimeout = config.propertyOrNull("database.connectionTimeout")?.getString()?.toLong() ?: 30000
         }
-
-        HikariDataSource(hikariConfig)
-    }.onClose {
-        it?.close()
+        return HikariDataSource(hikariConfig)
     }
 
     /**
      * Flyway（启动即执行 migration）
      */
-    single(createdAtStart = true) {
-        val ds = get<HikariDataSource>()
+    @Single(createdAtStart = true)
+    fun provideFlyway(ds: HikariDataSource, config: ApplicationConfig): Flyway {
         val schemas = config.property("database.schemas").getList()
 
-        Flyway.configure()
+        return Flyway.configure()
             .dataSource(ds)
-            .locations("db/migration/v10")
+            .locations("db/migration")
             .schemas(*schemas.toTypedArray())
             .baselineOnMigrate(true)
             .baselineVersion("0")
             .outOfOrder(false)
             .cleanDisabled(true)
             .load()
-            .migrate()
+            .apply {
+                migrate() // 启动即执行
+            }
     }
 
-    /**
-     * jOOQ DSLContext（全局共享）
-     */
-    single<DSLContext> {
-        DSL.using(get<HikariDataSource>(), SQLDialect.POSTGRES)
+    @Single
+    fun provideJooqConfig(ds: HikariDataSource): org.jooq.Configuration {
+        return DefaultConfiguration()
+            .set(ds)
+            .set(SQLDialect.POSTGRES)
+    }
+
+    @Single
+    fun provideDSLContext(configuration: org.jooq.Configuration): DSLContext {
+        return DSL.using(configuration)
     }
 }

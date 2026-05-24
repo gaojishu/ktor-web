@@ -1,4 +1,4 @@
-package com.example.infra.money
+package com.example.common.utils.money
 
 import java.math.BigDecimal
 import java.math.RoundingMode
