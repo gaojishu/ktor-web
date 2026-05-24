@@ -1,0 +1,4 @@
+### 建立并发送一次性消息
+WEBSOCKET ws://{{base_url}}/ws
+
+111

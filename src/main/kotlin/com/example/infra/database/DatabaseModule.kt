@@ -18,7 +18,7 @@ class DatabaseModule {
      * Hikari DataSource（交给 Koin 管生命周期）
      * createdAtStart = true 对应注解版 @Single(createdAtStart = true)
      */
-    @Single(createdAtStart = true)
+    @Single
     fun provideDataSource(config: ApplicationConfig): HikariDataSource {
         val hikariConfig = HikariConfig().apply {
             jdbcUrl = config.property("database.jdbcUrl").getString()
@@ -39,7 +39,7 @@ class DatabaseModule {
     /**
      * Flyway（启动即执行 migration）
      */
-    @Single(createdAtStart = true)
+    @Single
     fun provideFlyway(ds: HikariDataSource, config: ApplicationConfig): Flyway {
         val schemas = config.property("database.schemas").getList()
 
