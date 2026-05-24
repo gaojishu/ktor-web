@@ -9,16 +9,15 @@ plugins {
     alias(ktorLibs.plugins.ktor)
     alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.flyway)
-    id("io.insert-koin.compiler.plugin") version "1.0.0"
+    alias(libs.plugins.koin.compiler.plugin)
 }
 
-
+// configuration
 tasks.shadowJar {
     mergeServiceFiles{
         duplicatesStrategy = DuplicatesStrategy.INCLUDE
     }
 }
-
 
 sourceSets {
     main {
@@ -84,9 +83,6 @@ dependencies {
     implementation(libs.koin.ktor)
     implementation(libs.koin.logger.slf4j)
     implementation(libs.koin.annotations)
-
-    //ksp(libs.koin.ksp.compiler)
-
 
 }
 
