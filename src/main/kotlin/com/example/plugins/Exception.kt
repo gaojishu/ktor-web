@@ -8,6 +8,7 @@ import io.ktor.server.plugins.statuspages.StatusPages
 import io.ktor.server.response.respond
 
 class BusinessException(message: String = "未知错误", val errorCode: Int = 0) : RuntimeException(message)
+class UnauthorizedException(message: String = "未经授权或 Token 已过期") : RuntimeException(message)
 
 fun Application.configureException() {
     install(StatusPages) {
@@ -16,6 +17,15 @@ fun Application.configureException() {
         exception<BusinessException> { call, cause ->
             call.respond(
                 HttpStatusCode.BadRequest,
+                ApiResult<Unit>(
+                    message = cause.message ?: "服务器繁忙，请稍后再试"
+                )
+            )
+        }
+
+        exception<UnauthorizedException> { call, cause ->
+            call.respond(
+                HttpStatusCode.Unauthorized,
                 ApiResult<Unit>(
                     message = cause.message ?: "服务器繁忙，请稍后再试"
                 )

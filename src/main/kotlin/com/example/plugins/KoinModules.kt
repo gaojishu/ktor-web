@@ -24,6 +24,7 @@ fun Application.configureKoinModules() {
             single { environment.config }
         })
 
+
         module<AppModule>()
     }
 
