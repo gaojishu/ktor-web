@@ -1,6 +1,7 @@
 package com.example.infra.security
 
 import com.example.plugins.UnauthorizedException
+import io.ktor.http.auth.HttpAuthHeader
 import io.ktor.server.application.*
 import io.ktor.server.auth.*
 import io.ktor.server.auth.jwt.*
@@ -15,6 +16,18 @@ fun Application.configureSecurity() {
 
     install(Authentication) {
         jwt("admin") {
+            authHeader { call ->
+                // 优先从 Header 拿，拿不到就去 URL 参数里找一个叫 "token" 的值
+                val header = call.request.parseAuthorizationHeader()
+                if (header != null) return@authHeader header
+
+                val queryToken = call.request.queryParameters["token"]
+                if (queryToken != null) {
+                    return@authHeader HttpAuthHeader.Single("Bearer", queryToken)
+                }
+                null
+            }
+
             verifier(adminJwtService.makeJwtVerifier())
 
             validate { credential ->
@@ -45,6 +58,19 @@ fun Application.configureSecurity() {
         }
 
         jwt("app") {
+
+            authHeader { call ->
+                // 优先从 Header 拿，拿不到就去 URL 参数里找一个叫 "token" 的值
+                val header = call.request.parseAuthorizationHeader()
+                if (header != null) return@authHeader header
+
+                val queryToken = call.request.queryParameters["token"]
+                if (queryToken != null) {
+                    return@authHeader HttpAuthHeader.Single("Bearer", queryToken)
+                }
+                null
+            }
+
             verifier(appJwtService.makeJwtVerifier())
 
             validate { credential ->
