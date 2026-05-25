@@ -2,6 +2,7 @@
 plugins {
     alias(libs.plugins.kotlin.jvm)
     alias(libs.plugins.jooq.codegen)
+    java
 }
 //
 //repositories {
@@ -11,7 +12,7 @@ plugins {
 //}
 
 kotlin {
-    jvmToolchain(21)
+    jvmToolchain(25)
 }
 
 dependencies {

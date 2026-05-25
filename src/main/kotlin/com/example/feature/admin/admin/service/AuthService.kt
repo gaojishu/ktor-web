@@ -16,6 +16,6 @@ class AuthService(
     }
 
     suspend fun login(req: AuthLoginReq): AdminDto? {
-        return adminRepo.getByUsername(req.username!!)
+        return adminRepo.getByUsername(req.username)
     }
 }

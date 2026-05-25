@@ -90,7 +90,6 @@ dependencies {
     implementation("cn.hutool:hutool-captcha:5.8.44")
 }
 
-
 tasks.register<JavaExec>("codegen") {
     description = "jooq codegen"
     group = "build"
@@ -119,3 +118,4 @@ flyway {
     cleanDisabled = false
     locations = arrayOf("filesystem:src/main/resources/db/migration")
 }
+
