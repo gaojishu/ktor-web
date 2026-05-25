@@ -1,5 +1,6 @@
-package com.example.feature.admin.admin.dto.db
+package com.example.feature.admin.admin.dto
 
+import com.example.common.dto.BaseDto
 import com.example.feature.admin.admin.enums.AdminStatusEnum
 import kotlinx.serialization.Serializable
 
@@ -24,7 +25,7 @@ data class AdminDto(
     var permissionKey: List<String>? = null,
 
     /** 禁用状态枚举值 */
-    var disabledStatus: AdminStatusEnum? = null,
+    var status: AdminStatusEnum? = null,
 
     var deletedAt: String? = null,
 

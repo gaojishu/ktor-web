@@ -1,7 +1,10 @@
 package com.example.feature.admin.admin.repo
 
+import com.example.feature.admin.admin.dto.AdminDto
+import com.example.infra.database.dto.PageQuery
+import com.example.infra.database.dto.PageResult
+import com.example.infra.database.pageInto
 import com.example.infra.database.selectActiveFrom
-import com.example.jooq.generate.tables.records.AdminRecord
 import com.example.jooq.generate.tables.references.ADMIN
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -13,13 +16,69 @@ import java.util.UUID
 class AdminRepo(
     private val dsl: DSLContext
 ) {
-    suspend fun getById(id: UUID): AdminRecord? {
+
+    suspend fun searchPage(): PageResult<AdminDto> {
+        val query = PageQuery(page = 1, size = 10)
+
+        val dto = withContext(Dispatchers.IO) {
+            dsl.selectActiveFrom(ADMIN)
+                .pageInto(dsl, query,AdminDto::class.java)
+        }
+
+        return dto
+    }
+
+    suspend fun getByUsername(username: String): AdminDto? {
         val record = withContext(Dispatchers.IO) {
             dsl.selectActiveFrom(ADMIN)
                 //.and(ADMIN.ID.eq(id))
-                .fetchOne()
+                .fetchOneInto(AdminDto::class.java)
         }
         return record
     }
+
+    suspend fun getById(id: UUID): AdminDto? {
+        val record = withContext(Dispatchers.IO) {
+            dsl.selectActiveFrom(ADMIN)
+                //.and(ADMIN.ID.eq(id))
+                .fetchOneInto(AdminDto::class.java)
+        }
+        return record
+    }
+
+    suspend fun create(): PageResult<AdminDto> {
+        val query = PageQuery(page = 1, size = 10) // 假设你的分页入参对象
+
+        val dto = withContext(Dispatchers.IO) {
+            dsl.selectActiveFrom(ADMIN)
+                .pageInto(dsl, query,AdminDto::class.java)
+        }
+
+        return dto
+    }
+
+    suspend fun updateById(id: UUID): PageResult<AdminDto> {
+        val query = PageQuery(page = 1, size = 10) // 假设你的分页入参对象
+
+        val dto = withContext(Dispatchers.IO) {
+            dsl.selectActiveFrom(ADMIN)
+                .pageInto(dsl, query,AdminDto::class.java)
+        }
+
+        return dto
+    }
+
+    suspend fun deleteById(id: UUID): PageResult<AdminDto> {
+        val query = PageQuery(page = 1, size = 10) // 假设你的分页入参对象
+
+        val dto = withContext(Dispatchers.IO) {
+            dsl.selectActiveFrom(ADMIN)
+                .pageInto(dsl, query,AdminDto::class.java)
+        }
+
+        return dto
+    }
+
+
 
 }

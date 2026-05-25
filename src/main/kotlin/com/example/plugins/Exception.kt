@@ -1,14 +1,14 @@
 package com.example.plugins
 
 import com.example.common.dto.ApiResult
+import com.example.common.exception.BusinessException
+import com.example.common.exception.UnauthorizedException
 import io.ktor.http.HttpStatusCode
 import io.ktor.server.application.*
 import io.ktor.server.plugins.requestvalidation.RequestValidationException
 import io.ktor.server.plugins.statuspages.StatusPages
 import io.ktor.server.response.respond
 
-class BusinessException(message: String = "未知错误", val errorCode: Int = 0) : RuntimeException(message)
-class UnauthorizedException(message: String = "未经授权或 Token 已过期") : RuntimeException(message)
 
 fun Application.configureException() {
     install(StatusPages) {
@@ -33,7 +33,6 @@ fun Application.configureException() {
         }
 
         exception<RequestValidationException> { call, cause ->
-            println("VALIDATION FAILED: ${cause.reasons}")
             call.respond(
                 HttpStatusCode.BadRequest,
                 ApiResult<Unit>(

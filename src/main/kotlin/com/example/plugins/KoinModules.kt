@@ -2,7 +2,6 @@ package com.example.plugins
 
 import com.example.di.AppModule
 import com.example.infra.redis.RedisInitMarker
-import com.example.infra.websocket.WebSocketSessionManager
 import com.zaxxer.hikari.HikariDataSource
 import io.ktor.server.application.Application
 import io.ktor.server.application.ApplicationStopping
@@ -37,8 +36,6 @@ fun Application.configureKoinModules() {
     val redis = this.get<RedisClient>()
     this.get<RedisInitMarker>()
     val redisson = this.get<RedissonClient>()
-    this.get<WebSocketSessionManager>()
-
 
     // 🎯 更正 2：全面切换为 Ktor 3.x 标准最高优先级的 Stopping 监听
     monitor.subscribe(ApplicationStopping) {

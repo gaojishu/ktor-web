@@ -1,6 +1,6 @@
 package com.example.common
 
-import com.example.plugins.BusinessException
+import com.example.common.exception.BusinessException
 import io.ktor.server.application.*
 import io.ktor.server.plugins.*
 import java.util.UUID

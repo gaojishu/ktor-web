@@ -33,7 +33,10 @@ application {
 }
 
 kotlin {
-    jvmToolchain(21)
+    jvmToolchain(25)
+    compilerOptions {
+        optIn.add("kotlin.uuid.ExperimentalUuidApi")
+    }
 }
 dependencies {
     implementation(ktorLibs.server.core)
@@ -84,6 +87,7 @@ dependencies {
     implementation(libs.koin.logger.slf4j)
     implementation(libs.koin.annotations)
 
+    implementation("cn.hutool:hutool-captcha:5.8.44")
 }
 
 

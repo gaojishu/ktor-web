@@ -4,7 +4,9 @@ import com.example.common.dto.ApiResult
 import com.example.common.uuidId
 import com.example.feature.admin.KtorAdminController
 import com.example.feature.admin.admin.dto.AdminDto
-import com.example.feature.admin.admin.service.AdminService
+import com.example.feature.admin.admin.dto.AuthLoginReq
+import com.example.feature.admin.admin.service.AuthService
+import io.ktor.server.request.receive
 import io.ktor.server.routing.*
 import io.ktor.server.response.respond
 import org.koin.core.annotation.Single
@@ -12,21 +14,24 @@ import kotlin.uuid.Uuid
 import kotlin.uuid.toJavaUuid
 
 @Single
-class AdminRoute(private val adminService: AdminService) : KtorAdminController {
+class AuthRoute(
+    private val authService: AuthService
+) : KtorAdminController {
 
     override fun Route.registerRoutes() {
-        route("/admin") {
-            get("/{id}") {
-                val id = call.uuidId
-                val users = adminService.detail(id)
+        route("/auth") {
+            post("/login") {
+                val req = call.receive<AuthLoginReq>()
+
+                val res = authService.login(req)
                 call.respond<ApiResult<AdminDto>>(
                     ApiResult(
-                        data = users
+                        data = res
                     )
                 )
             }
             get("/info") {
-                val users = adminService.detail(Uuid.generateV7().toJavaUuid())
+                val users = authService.info(Uuid.generateV7().toJavaUuid())
                 call.respond<ApiResult<AdminDto>>(
                     ApiResult(
                         data = users

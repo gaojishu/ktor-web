@@ -7,11 +7,14 @@ fun Application.installPlugins() {
     configureForwardedHeader()
     configureLogging()
     configureSerialization()
+    configureCors()
     configureException()
     configureRateLimiting()
     configureCompression()
-    configureRequestValidation()
     configureWebSockets()
     configureKoinModules()
+
+
+    configureRequestValidation()
     configureSecurity()
 }

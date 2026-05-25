@@ -1,6 +1,6 @@
 package com.example.infra.security
 
-import com.example.plugins.UnauthorizedException
+import com.example.common.exception.UnauthorizedException
 import io.ktor.http.auth.HttpAuthHeader
 import io.ktor.server.application.*
 import io.ktor.server.auth.*
