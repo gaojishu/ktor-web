@@ -19,6 +19,12 @@ fun Application.configureSerialization() {
                 // 明确保留 null 值，不要从 JSON 中移除
                 explicitNulls = true
 
+                // 核心配置：忽略前端多传的未知字段 🔴
+                ignoreUnknownKeys = true
+
+                // 可选配置：如果前端传了 null 但后端有默认值，自动使用默认值
+                coerceInputValues = true
+
                 // 全局的上下文序列化器
                 serializersModule = SerializersModule {
                     contextual(UUID::class, UUIDSerializer)

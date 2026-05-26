@@ -1,14 +1,14 @@
 package com.example.feature.admin.admin.service
 
 import com.example.common.exception.BusinessException
-import com.example.common.functions.hashWithArgon2
 import com.example.common.functions.verifyArgon2
 import com.example.feature.admin.admin.dto.AdminDto
 import com.example.feature.admin.admin.dto.AuthLoginReq
 import com.example.feature.admin.admin.dto.AuthLoginRes
 import com.example.feature.admin.admin.repo.AdminRepo
 import com.example.feature.admin.captcha.service.CaptchaService
-import com.example.infra.redis.RedisRepository
+import com.example.feature.admin.permission.dto.PermissionDto
+import com.example.feature.admin.permission.repo.PermissionRepo
 import com.example.infra.security.AdminJwtService
 import org.koin.core.annotation.Single
 import java.util.UUID
@@ -17,7 +17,8 @@ import java.util.UUID
 class AuthService(
     private val adminRepo: AdminRepo,
     private val adminJwtService: AdminJwtService,
-    private val captchaService: CaptchaService
+    private val captchaService: CaptchaService,
+    private val permissionRepo: PermissionRepo
 ) {
 
     suspend fun info(id: UUID): AdminDto? {
@@ -40,5 +41,13 @@ class AuthService(
         return AuthLoginRes(
             token = token
         )
+    }
+
+    suspend fun logout() {}
+
+    suspend fun permission(adminId: UUID): List<PermissionDto> {
+        val dto = permissionRepo.selectPermissionByAdminId(adminId)
+
+        return dto
     }
 }

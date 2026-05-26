@@ -1,6 +1,9 @@
 package com.example.feature.admin.admin.repo
 
 import com.example.feature.admin.admin.dto.AdminDto
+import com.example.feature.admin.admin.dto.AdminPageReq
+import com.example.feature.admin.admin.dto.AdminQueryParams
+import com.example.feature.admin.admin.query.AdminQuery
 import com.example.infra.database.dto.PageQuery
 import com.example.infra.database.dto.PageResult
 import com.example.infra.database.pageInto
@@ -15,15 +18,17 @@ import java.util.UUID
 
 @Single
 class AdminRepo(
-    private val dsl: DSLContext
+    private val dsl: DSLContext,
+    private val query: AdminQuery
 ) {
 
-    suspend fun searchPage(): PageResult<AdminDto> {
-        val query = PageQuery(page = 1, size = 10)
+    suspend fun searchPage(params: AdminQueryParams?,pageQuery: PageQuery): PageResult<AdminDto> {
 
+        val condition = query.buildCondition(params)
         val dto = withContext(Dispatchers.IO) {
             dsl.selectActiveFrom(ADMIN)
-                .pageInto(dsl, query,AdminDto::class.java)
+                .and(condition)
+                .pageInto(dsl, pageQuery,AdminDto::class.java)
         }
 
         return dto
@@ -79,7 +84,5 @@ class AdminRepo(
 
         return dto
     }
-
-
 
 }

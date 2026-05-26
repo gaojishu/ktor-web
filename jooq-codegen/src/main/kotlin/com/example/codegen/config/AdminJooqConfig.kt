@@ -11,6 +11,13 @@ object AdminJooqConfig {
             includeExpression = "public\\.admin\\.status"
             includeTypes = "int4"
         },
+
+        ForcedType().apply {
+            userType = "com.example.feature.admin.permission.enums.PermissionTypeEnum"
+            converter = "com.example.feature.admin.permission.converter.PermissionTypeConverter"
+            includeExpression = "public\\.permission\\.type"
+            includeTypes = "int4"
+        },
         // ---------admin end----------
     )
 }

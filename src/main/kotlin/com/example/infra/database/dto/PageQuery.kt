@@ -1,5 +1,8 @@
 package com.example.infra.database.dto
 
+import kotlinx.serialization.Serializable
+
+@Serializable
 data class PageQuery(
     val page: Int = 1,
     val size: Int = 20,

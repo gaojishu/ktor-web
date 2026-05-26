@@ -26,20 +26,26 @@ class AuthRoute(
                 val req = call.receive<AuthLoginReq>()
 
                 val res = authService.login(req)
-                call.respond<ApiResult<AuthLoginRes>>(
+                call.respond(
                     ApiResult(
                         data = res
                     )
                 )
             }
             get("/info") {
-                val user = call.authentication.principal<CurrentUser>()
-                val res = authService.info(user!!.id)
-                call.respond<ApiResult<AdminDto>>(
+                val auth = call.authentication.principal<CurrentUser>()
+                val res = authService.info(auth!!.id)
+                call.respond(
                     ApiResult(
                         data = res
                     )
                 )
+            }
+            get("/permission"){
+                val auth = call.authentication.principal<CurrentUser>()
+                val res = authService.permission(auth!!.id)
+
+                call.respond(ApiResult(data = res))
             }
         }
     }

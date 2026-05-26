@@ -1,5 +1,8 @@
 package com.example.infra.database.dto
 
+import kotlinx.serialization.Serializable
+
+@Serializable
 data class PageResult<T>(
     val list: List<T>,
     val total: Long,

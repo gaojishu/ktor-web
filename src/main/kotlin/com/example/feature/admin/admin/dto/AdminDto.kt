@@ -2,6 +2,7 @@ package com.example.feature.admin.admin.dto
 
 import com.example.common.dto.BaseDto
 import com.example.feature.admin.admin.enums.AdminStatusEnum
+import com.example.feature.admin.permission.dto.PermissionDto
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -29,5 +30,5 @@ data class AdminDto(
 
     var deletedAt: String? = null,
 
-    var permission: List<String> = emptyList()
+    var permission: List<PermissionDto> = emptyList()
 ): BaseDto()
