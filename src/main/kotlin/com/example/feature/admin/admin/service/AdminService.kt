@@ -3,7 +3,7 @@ package com.example.feature.admin.admin.service
 import com.example.feature.admin.admin.dto.AdminDto
 import com.example.feature.admin.admin.dto.AdminPageReq
 import com.example.feature.admin.admin.repo.AdminRepo
-import com.example.infra.database.dto.PageResult
+import com.example.common.dto.PageResult
 import org.koin.core.annotation.Single
 import java.util.UUID
 

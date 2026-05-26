@@ -1,7 +1,7 @@
 package com.example.infra.database
 
-import com.example.infra.database.dto.PageQuery
-import com.example.infra.database.dto.PageResult
+import com.example.common.dto.PageQuery
+import com.example.common.dto.PageResult
 import org.jooq.DSLContext
 import org.jooq.Record
 import org.jooq.SelectLimitStep

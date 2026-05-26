@@ -1,11 +1,10 @@
 package com.example.feature.admin.admin.repo
 
 import com.example.feature.admin.admin.dto.AdminDto
-import com.example.feature.admin.admin.dto.AdminPageReq
 import com.example.feature.admin.admin.dto.AdminQueryParams
 import com.example.feature.admin.admin.query.AdminQuery
-import com.example.infra.database.dto.PageQuery
-import com.example.infra.database.dto.PageResult
+import com.example.common.dto.PageQuery
+import com.example.common.dto.PageResult
 import com.example.infra.database.pageInto
 import com.example.infra.database.selectActiveFrom
 import com.example.jooq.generate.tables.records.AdminRecord

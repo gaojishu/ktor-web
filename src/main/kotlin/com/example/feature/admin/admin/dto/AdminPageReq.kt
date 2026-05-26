@@ -1,7 +1,7 @@
 package com.example.feature.admin.admin.dto
 
 import com.example.feature.admin.admin.enums.AdminStatusEnum
-import com.example.infra.database.dto.PageQuery
+import com.example.common.dto.PageQuery
 import kotlinx.serialization.Serializable
 
 @Serializable

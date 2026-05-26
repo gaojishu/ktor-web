@@ -19,10 +19,6 @@ class AdminRoute(private val adminService: AdminService) : KtorAdminController {
             post("/page") {
                 val req = call.receive<AdminPageReq>()
 
-                val page = call.request.queryParameters["page"]?.toIntOrNull() ?: 1
-                val size = call.request.queryParameters["size"]?.toIntOrNull() ?: 10
-
-
                 val res = adminService.page(req)
                 call.respond(
                     ApiResult(

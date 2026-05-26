@@ -2,11 +2,6 @@ package com.example.feature.admin.permission.repo
 
 import com.example.feature.admin.admin.dto.AdminDto
 import com.example.feature.admin.permission.dto.PermissionDto
-import com.example.infra.database.dto.PageQuery
-import com.example.infra.database.dto.PageResult
-import com.example.infra.database.pageInto
-import com.example.infra.database.selectActiveFrom
-import com.example.jooq.generate.tables.records.AdminRecord
 import com.example.jooq.generate.tables.references.ADMIN
 import com.example.jooq.generate.tables.references.ADMIN_PERMISSION
 import com.example.jooq.generate.tables.references.PERMISSION

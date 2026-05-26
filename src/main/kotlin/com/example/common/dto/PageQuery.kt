@@ -1,4 +1,4 @@
-package com.example.infra.database.dto
+package com.example.common.dto
 
 import kotlinx.serialization.Serializable
 
