@@ -88,6 +88,7 @@ dependencies {
     implementation(libs.koin.annotations)
 
     implementation("cn.hutool:hutool-captcha:5.8.44")
+    implementation("com.password4j:password4j:1.8.4")
 }
 
 tasks.register<JavaExec>("codegen") {

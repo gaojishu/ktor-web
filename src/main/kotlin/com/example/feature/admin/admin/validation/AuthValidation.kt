@@ -1,8 +1,8 @@
 package com.example.feature.admin.admin.validation
 
-import com.example.common.validation.shouldBeAlphanumeric
-import com.example.common.validation.shouldBeStrongPassword
-import com.example.common.validation.shouldNotBlank
+import com.example.common.functions.shouldBeAlphanumeric
+import com.example.common.functions.shouldBeStrongPassword
+import com.example.common.functions.shouldNotBlank
 import com.example.feature.KtorValidator
 import com.example.feature.admin.admin.dto.AuthLoginReq
 import io.ktor.server.plugins.requestvalidation.RequestValidationConfig
@@ -28,9 +28,6 @@ class AuthValidation : KtorValidator {
                 errors.add(errorMsg)
             }
 
-            req.captchaUuid.shouldNotBlank("验证码")?.let { errorMsg ->
-                errors.add(errorMsg)
-            }
 
             if (errors.isEmpty()) ValidationResult.Valid else ValidationResult.Invalid(errors)
         }

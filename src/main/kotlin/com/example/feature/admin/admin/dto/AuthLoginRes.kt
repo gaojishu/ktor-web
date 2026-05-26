@@ -1,4 +1,6 @@
 package com.example.feature.admin.admin.dto
 
-class AuthLoginRes {
-}
+import kotlinx.serialization.Serializable
+
+@Serializable
+data class AuthLoginRes(val token: String)

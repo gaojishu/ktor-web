@@ -1,17 +1,19 @@
 package com.example.feature.admin.admin.route
 
 import com.example.common.dto.ApiResult
-import com.example.common.uuidId
 import com.example.feature.admin.KtorAdminController
 import com.example.feature.admin.admin.dto.AdminDto
 import com.example.feature.admin.admin.dto.AuthLoginReq
+import com.example.feature.admin.admin.dto.AuthLoginRes
 import com.example.feature.admin.admin.service.AuthService
+import com.example.infra.security.CurrentUser
 import io.ktor.server.request.receive
 import io.ktor.server.routing.*
 import io.ktor.server.response.respond
 import org.koin.core.annotation.Single
 import kotlin.uuid.Uuid
 import kotlin.uuid.toJavaUuid
+import io.ktor.server.auth.*
 
 @Single
 class AuthRoute(
@@ -24,17 +26,18 @@ class AuthRoute(
                 val req = call.receive<AuthLoginReq>()
 
                 val res = authService.login(req)
-                call.respond<ApiResult<AdminDto>>(
+                call.respond<ApiResult<AuthLoginRes>>(
                     ApiResult(
                         data = res
                     )
                 )
             }
             get("/info") {
-                val users = authService.info(Uuid.generateV7().toJavaUuid())
+                val user = call.authentication.principal<CurrentUser>()
+                val res = authService.info(user!!.id)
                 call.respond<ApiResult<AdminDto>>(
                     ApiResult(
-                        data = users
+                        data = res
                     )
                 )
             }

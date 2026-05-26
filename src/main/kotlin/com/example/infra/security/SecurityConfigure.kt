@@ -11,9 +11,9 @@ import org.koin.ktor.ext.inject
 import java.util.UUID
 
 fun Application.configureSecurity() {
-    val adminJwtService by inject<JwtService>(named("adminJwtService"))
+    val adminJwtService by inject<AdminJwtService>()
 
-    val appJwtService by inject<JwtService>(named("appJwtService"))
+    val appAdminJwtService by inject<AdminJwtService>()
 
     install(Authentication) {
         jwt("admin") {
@@ -72,7 +72,7 @@ fun Application.configureSecurity() {
                 null
             }
 
-            verifier(appJwtService.makeJwtVerifier())
+            verifier(appAdminJwtService.makeJwtVerifier())
 
             validate { credential ->
                 val userId = credential.payload.getClaim("userId").asString()
@@ -85,7 +85,7 @@ fun Application.configureSecurity() {
 
             skipWhen { call ->
                 val requestPath = call.request.path()
-                val excludePaths = appJwtService.excludePaths()
+                val excludePaths = appAdminJwtService.excludePaths()
 
                 excludePaths.any { excludePath ->
                     if (excludePath.endsWith("/**")) {

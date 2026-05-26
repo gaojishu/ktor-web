@@ -1,21 +1,44 @@
 package com.example.feature.admin.admin.service
 
+import com.example.common.exception.BusinessException
+import com.example.common.functions.hashWithArgon2
+import com.example.common.functions.verifyArgon2
 import com.example.feature.admin.admin.dto.AdminDto
 import com.example.feature.admin.admin.dto.AuthLoginReq
+import com.example.feature.admin.admin.dto.AuthLoginRes
 import com.example.feature.admin.admin.repo.AdminRepo
+import com.example.feature.admin.captcha.service.CaptchaService
+import com.example.infra.redis.RedisRepository
+import com.example.infra.security.AdminJwtService
 import org.koin.core.annotation.Single
 import java.util.UUID
 
 @Single
 class AuthService(
     private val adminRepo: AdminRepo,
+    private val adminJwtService: AdminJwtService,
+    private val captchaService: CaptchaService
 ) {
 
     suspend fun info(id: UUID): AdminDto? {
-        return adminRepo.getById(id)
+        return adminRepo.selectById(id)
     }
 
-    suspend fun login(req: AuthLoginReq): AdminDto? {
-        return adminRepo.getByUsername(req.username)
+    suspend fun login(req: AuthLoginReq): AuthLoginRes {
+        //验证码验证
+        captchaService.verify(req.captchaUuid,req.captchaCode)
+
+        val record = adminRepo.selectByUsername(req.username)
+
+        //密码验证
+        record?.password?.verifyArgon2(req.password) ?: throw BusinessException("用户名或密码错误")
+
+        //用户状态验证
+        record.status?.checkActive()
+
+        val token = adminJwtService.generateToken(record.id.toString())
+        return AuthLoginRes(
+            token = token
+        )
     }
 }

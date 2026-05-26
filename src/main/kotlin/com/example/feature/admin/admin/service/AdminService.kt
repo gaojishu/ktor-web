@@ -11,6 +11,6 @@ class AdminService(
 ) {
 
     suspend fun detail(id: UUID): AdminDto? {
-        return adminRepo.getById(id)
+        return adminRepo.selectById(id)
     }
 }

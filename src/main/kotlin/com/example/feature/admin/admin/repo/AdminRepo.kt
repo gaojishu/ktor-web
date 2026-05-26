@@ -5,6 +5,7 @@ import com.example.infra.database.dto.PageQuery
 import com.example.infra.database.dto.PageResult
 import com.example.infra.database.pageInto
 import com.example.infra.database.selectActiveFrom
+import com.example.jooq.generate.tables.records.AdminRecord
 import com.example.jooq.generate.tables.references.ADMIN
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -28,22 +29,22 @@ class AdminRepo(
         return dto
     }
 
-    suspend fun getByUsername(username: String): AdminDto? {
+    suspend fun selectByUsername(username: String): AdminRecord? {
         val record = withContext(Dispatchers.IO) {
             dsl.selectActiveFrom(ADMIN)
-                //.and(ADMIN.ID.eq(id))
-                .fetchOneInto(AdminDto::class.java)
+                .and(ADMIN.USERNAME.eq(username))
+                .fetchOne()
         }
         return record
     }
 
-    suspend fun getById(id: UUID): AdminDto? {
-        val record = withContext(Dispatchers.IO) {
+    suspend fun selectById(id: UUID): AdminDto? {
+        val dto = withContext(Dispatchers.IO) {
             dsl.selectActiveFrom(ADMIN)
-                //.and(ADMIN.ID.eq(id))
+                .and(ADMIN.ID.eq(id))
                 .fetchOneInto(AdminDto::class.java)
         }
-        return record
+        return dto
     }
 
     suspend fun create(): PageResult<AdminDto> {

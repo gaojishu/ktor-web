@@ -1,4 +1,4 @@
-package com.example.common.validation
+package com.example.common.functions
 
 fun String?.shouldNotBlank(field: String? = null): String? {
     return if (this.isNullOrBlank()) "$field 不能为空" else null
@@ -36,3 +36,4 @@ fun String?.shouldMinLength(field: String? = null, min: Int): String? {
     if (this == null) return null
     return if (this.length < min) "$field 长度不能少于 $min 位" else null
 }
+

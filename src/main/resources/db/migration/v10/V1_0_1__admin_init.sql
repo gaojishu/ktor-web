@@ -9,7 +9,7 @@ CREATE TABLE IF NOT EXISTS "public"."admin" (
     "updated_at" TIMESTAMP(6) NOT NULL DEFAULT CURRENT_TIMESTAMP, -- 更新时间
     "deleted_at" TIMESTAMP(6),                         -- 删除时间
     "username" VARCHAR(55) NOT NULL,                   -- 用户名
-    "password" VARCHAR(100) NOT NULL,                  -- 密码
+    "password" VARCHAR(255) NOT NULL,                  -- 密码
     "nickname" VARCHAR(55),                            -- 昵称
     "email" VARCHAR(55),                               -- 邮箱
     "mobile" VARCHAR(20),                              -- 手机号
@@ -20,8 +20,8 @@ CREATE TABLE IF NOT EXISTS "public"."admin" (
 CREATE UNIQUE INDEX IF NOT EXISTS "uk_admin_admin_username" ON "public"."admin" ("username");
 
 -- 初始化默认管理员
-INSERT INTO "public"."admin" ("id", "username", "password")
-VALUES ('019d5228-5235-768e-8f49-6189373b7191', 'admin123', '$2a$10$uMJY137kuoJWqa.yEBpU6OE5Yh1lYNtnJPOlewFpnE81rd7C3qlsm');
+INSERT INTO "public"."admin" ("id", "username", "password", "status")
+VALUES ('019d5228-5235-768e-8f49-6189373b7191', 'admin123', '$argon2id$v=19$m=65536,t=3,p=4$m8dTWCwxVAU62yed888Z1c1WjJZkBRUcTONePXrahUu6kOmDHJM0QDXEepHA1vwTZf1xV4p51P5y4m8AkfL6oA$cF5OW3H3g1fDEhSspzewm2GU9MQUpMysgQj+KEjzcZY', 1);
 
 -- 创建 permission 表
 CREATE TABLE IF NOT EXISTS "public"."permission" (

@@ -20,15 +20,4 @@ class SecurityModule {
         return JwtConfig.fromConfig(config, "jwt.app")
     }
 
-    @Single
-    @Named("adminJwtService")
-    fun provideAdminJwtService(@Named("adminJwtConfig") config: JwtConfig): JwtService {
-        return JwtService(config)
-    }
-
-    @Single
-    @Named("appJwtService")
-    fun provideAppJwtService(@Named("appJwtConfig") config: JwtConfig): JwtService {
-        return JwtService(config)
-    }
 }
