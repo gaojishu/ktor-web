@@ -17,4 +17,5 @@ fun Application.installPlugins() {
 
     configureRequestValidation()
     configureSecurity()
+    configureDoubleReceive()
 }
