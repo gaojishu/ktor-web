@@ -7,7 +7,6 @@ import org.jooq.impl.DSL
 import org.koin.core.annotation.Single
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
-import kotlin.uuid.Uuid
 
 @Single
 class AdminQuery {
@@ -17,7 +16,7 @@ class AdminQuery {
         var condition = DSL.noCondition()
 
         params?.id?.let {
-            condition = condition.and(ADMIN.ID.contains(Uuid.parse(it)))
+            condition = condition.and(ADMIN.ID.contains(it))
         }
 
         params?.username?.let {

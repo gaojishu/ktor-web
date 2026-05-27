@@ -53,7 +53,7 @@ CREATE TABLE IF NOT EXISTS "public"."admin_permission" (
 CREATE TABLE IF NOT EXISTS "public"."role" (
     "id" UUID PRIMARY KEY DEFAULT uuidv7(),              -- 主键 ID
     "name" VARCHAR(55) NOT NULL DEFAULT '',              -- 角色名称
-    "permission_key" JSON,                               -- 权限键集合
+    "permission_key" TEXT[],                               -- 权限键集合
     "remark" VARCHAR(100),                               -- 备注
     "created_at" TIMESTAMP(6) NOT NULL DEFAULT CURRENT_TIMESTAMP, -- 创建时间
     "updated_at" TIMESTAMP(6) NOT NULL DEFAULT CURRENT_TIMESTAMP  -- 更新时间

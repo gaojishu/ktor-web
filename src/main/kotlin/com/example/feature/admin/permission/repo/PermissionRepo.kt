@@ -101,12 +101,8 @@ class PermissionRepo(
     }
 
     suspend fun deleteById(id: Uuid) {
-        val dto = withContext(Dispatchers.IO) {
-            selectById(id)
-        } ?: throw BusinessException("权限不存在")
-
         val child = withContext(Dispatchers.IO) {
-           selectByParentId(dto.parentId!!)
+           selectByParentId(id)
         }
 
         if (child.isNotEmpty()) {
@@ -115,7 +111,7 @@ class PermissionRepo(
 
         withContext(Dispatchers.IO) {
             dsl.deleteFrom(PERMISSION)
-                .where(PERMISSION.PARENT_ID.eq(id))
+                .where(PERMISSION.ID.eq(id))
                 .execute()
         }
     }

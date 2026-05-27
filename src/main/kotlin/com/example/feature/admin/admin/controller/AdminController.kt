@@ -1,6 +1,7 @@
 package com.example.feature.admin.admin.controller
 
 import com.example.common.dto.ApiResult
+import com.example.common.exception.BusinessException
 import com.example.common.uuidId
 import com.example.feature.KtorAdminController
 import com.example.feature.admin.admin.dto.AdminPageReq
