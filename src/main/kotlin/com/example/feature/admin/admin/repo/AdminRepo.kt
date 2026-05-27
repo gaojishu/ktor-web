@@ -13,7 +13,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import org.jooq.DSLContext
 import org.koin.core.annotation.Single
-import java.util.UUID
+import kotlin.uuid.Uuid
 
 @Single
 class AdminRepo(
@@ -42,7 +42,7 @@ class AdminRepo(
         return record
     }
 
-    suspend fun selectById(id: UUID): AdminDto? {
+    suspend fun selectById(id: Uuid): AdminDto? {
         val dto = withContext(Dispatchers.IO) {
             dsl.selectActiveFrom(ADMIN)
                 .and(ADMIN.ID.eq(id))
@@ -62,7 +62,7 @@ class AdminRepo(
         return dto
     }
 
-    suspend fun updateById(id: UUID): PageResult<AdminDto> {
+    suspend fun updateById(id: Uuid): PageResult<AdminDto> {
         val query = PageQuery(page = 1, size = 10) // 假设你的分页入参对象
 
         val dto = withContext(Dispatchers.IO) {
@@ -73,7 +73,7 @@ class AdminRepo(
         return dto
     }
 
-    suspend fun deleteById(id: UUID): PageResult<AdminDto> {
+    suspend fun deleteById(id: Uuid): PageResult<AdminDto> {
         val query = PageQuery(page = 1, size = 10) // 假设你的分页入参对象
 
         val dto = withContext(Dispatchers.IO) {

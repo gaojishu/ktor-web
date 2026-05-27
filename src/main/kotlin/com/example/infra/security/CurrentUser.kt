@@ -1,7 +1,7 @@
 package com.example.infra.security
 
-import java.util.UUID
+import kotlin.uuid.Uuid
 
 data class CurrentUser(
-    val id: UUID,
+    val id: Uuid,
 )

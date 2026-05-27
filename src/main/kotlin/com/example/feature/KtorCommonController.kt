@@ -1,4 +1,4 @@
-package com.example.feature.common
+package com.example.feature
 
 import io.ktor.server.routing.Route
 

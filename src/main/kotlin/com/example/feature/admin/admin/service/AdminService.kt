@@ -5,7 +5,7 @@ import com.example.feature.admin.admin.dto.AdminPageReq
 import com.example.feature.admin.admin.repo.AdminRepo
 import com.example.common.dto.PageResult
 import org.koin.core.annotation.Single
-import java.util.UUID
+import kotlin.uuid.Uuid
 
 @Single
 class AdminService(
@@ -16,7 +16,7 @@ class AdminService(
         return adminRepo.searchPage(req.params, req.page)
     }
 
-    suspend fun detail(id: UUID): AdminDto? {
+    suspend fun detail(id: Uuid): AdminDto? {
         return adminRepo.selectById(id)
     }
 }

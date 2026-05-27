@@ -11,7 +11,7 @@ import com.example.feature.admin.permission.dto.PermissionDto
 import com.example.feature.admin.permission.repo.PermissionRepo
 import com.example.infra.security.AdminJwtService
 import org.koin.core.annotation.Single
-import java.util.UUID
+import kotlin.uuid.Uuid
 
 @Single
 class AuthService(
@@ -21,7 +21,7 @@ class AuthService(
     private val permissionRepo: PermissionRepo
 ) {
 
-    suspend fun info(id: UUID): AdminDto? {
+    suspend fun info(id: Uuid): AdminDto? {
         return adminRepo.selectById(id)
     }
 
@@ -45,7 +45,7 @@ class AuthService(
 
     suspend fun logout() {}
 
-    suspend fun permission(adminId: UUID): List<PermissionDto> {
+    suspend fun permission(adminId: Uuid): List<PermissionDto> {
         val dto = permissionRepo.selectPermissionByAdminId(adminId)
 
         return dto

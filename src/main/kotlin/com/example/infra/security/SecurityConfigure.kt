@@ -6,9 +6,8 @@ import io.ktor.server.application.*
 import io.ktor.server.auth.*
 import io.ktor.server.auth.jwt.*
 import io.ktor.server.request.path
-import org.koin.core.qualifier.named
 import org.koin.ktor.ext.inject
-import java.util.UUID
+import kotlin.uuid.Uuid
 
 fun Application.configureSecurity() {
     val adminJwtService by inject<AdminJwtService>()
@@ -34,7 +33,7 @@ fun Application.configureSecurity() {
             validate { credential ->
                 val userId = credential.payload.getClaim("userId").asString()
                 if(userId != null){
-                    CurrentUser(UUID.fromString(userId))
+                    CurrentUser(Uuid.parse(userId))
                 }else{
                     null
                 }
@@ -77,7 +76,7 @@ fun Application.configureSecurity() {
             validate { credential ->
                 val userId = credential.payload.getClaim("userId").asString()
                 if(userId != null){
-                    CurrentUser(UUID.fromString(userId))
+                    CurrentUser(Uuid.parse(userId))
                 }else{
                     null
                 }

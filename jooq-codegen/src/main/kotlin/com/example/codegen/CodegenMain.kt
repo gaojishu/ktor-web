@@ -1,6 +1,7 @@
 package com.example.codegen
 
-import com.example.codegen.config.AdminJooqConfig
+import com.example.codegen.config.AdminForcedTypeConfig
+import com.example.codegen.config.GlobalForcedTypeConfig
 import org.jooq.meta.jaxb.*
 import java.io.File
 import java.util.Properties
@@ -72,7 +73,8 @@ fun main() {
                             """.trimIndent()
                         )
                         .withForcedTypes(
-                            *AdminJooqConfig.forcedTypes.toTypedArray(),
+                            *GlobalForcedTypeConfig.forcedTypes.toTypedArray(),
+                            *AdminForcedTypeConfig.forcedTypes.toTypedArray(),
                         )
                 )
                 .withGenerate(

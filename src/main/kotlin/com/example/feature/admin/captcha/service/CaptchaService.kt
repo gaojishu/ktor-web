@@ -5,8 +5,7 @@ import com.example.common.exception.BusinessException
 import com.example.feature.admin.captcha.dto.CaptchaDto
 import com.example.infra.redis.RedisRepository
 import org.koin.core.annotation.Single
-import java.util.UUID
-import kotlin.uuid.toKotlinUuid
+import kotlin.uuid.Uuid
 
 @Single
 class CaptchaService(
@@ -19,7 +18,7 @@ class CaptchaService(
         val captcha = CaptchaUtil.createCircleCaptcha(140, 48, 4, 20)
 
         val code = captcha.code.lowercase()
-        val uuid = UUID.randomUUID()
+        val uuid = Uuid.generateV4()
 
         redisRepository.setEx(redisPrefix + uuid,code,expireSeconds)
 
@@ -29,7 +28,7 @@ class CaptchaService(
         )
     }
 
-    suspend fun verify(uuid: UUID, inputCode: String) {
+    suspend fun verify(uuid: Uuid, inputCode: String) {
         if (inputCode.isBlank()) {
             throw BusinessException("验证码错误")
         }

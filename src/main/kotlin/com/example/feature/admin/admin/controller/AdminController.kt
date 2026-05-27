@@ -1,9 +1,8 @@
-package com.example.feature.admin.admin.route
+package com.example.feature.admin.admin.controller
 
 import com.example.common.dto.ApiResult
 import com.example.common.uuidId
-import com.example.feature.admin.KtorAdminController
-import com.example.feature.admin.admin.dto.AdminDto
+import com.example.feature.KtorAdminController
 import com.example.feature.admin.admin.dto.AdminPageReq
 import com.example.feature.admin.admin.service.AdminService
 import io.ktor.server.request.receive
@@ -12,7 +11,7 @@ import io.ktor.server.response.respond
 import org.koin.core.annotation.Single
 
 @Single
-class AdminRoute(private val adminService: AdminService) : KtorAdminController {
+class AdminController(private val adminService: AdminService) : KtorAdminController {
 
     override fun Route.registerRoutes() {
         route("/admin") {

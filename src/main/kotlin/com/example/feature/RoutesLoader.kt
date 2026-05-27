@@ -1,7 +1,5 @@
 package com.example.feature
 
-import com.example.feature.admin.KtorAdminController
-import com.example.feature.common.KtorCommonController
 import io.ktor.server.application.Application
 import io.ktor.server.auth.authenticate
 import io.ktor.server.response.respondText

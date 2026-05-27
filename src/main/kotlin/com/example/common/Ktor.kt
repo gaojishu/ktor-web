@@ -3,15 +3,15 @@ package com.example.common
 import com.example.common.exception.BusinessException
 import io.ktor.server.application.*
 import io.ktor.server.plugins.*
-import java.util.UUID
+import kotlin.uuid.Uuid
 
 // 编写扩展属性
-val ApplicationCall.uuidId: UUID
+val ApplicationCall.uuidId: Uuid
     get() {
         val idStr = parameters["id"] ?: throw BadRequestException("Missing id parameter")
         return try {
-            UUID.fromString(idStr)
+            Uuid.parse(idStr)
         } catch (_: IllegalArgumentException) {
-            throw BusinessException("Invalid UUID format for id: $idStr")
+            throw BusinessException("Invalid kotlin.uuid.Uuid format for id: $idStr")
         }
     }

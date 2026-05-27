@@ -1,4 +1,4 @@
-package com.example.feature.user.route
+package com.example.feature.user.controller
 
 import com.example.feature.user.service.AppUserService
 import com.example.common.dto.ApiResult

@@ -11,15 +11,21 @@ import org.jooq.DSLContext
 import org.jooq.impl.DSL.multiset
 import org.jooq.impl.DSL.select
 import org.koin.core.annotation.Single
-import java.util.UUID
+import kotlin.uuid.Uuid
 
 @Single
 class PermissionRepo(
     private val dsl: DSLContext
 ) {
-    suspend fun selectPermissionByAdminId(adminId: UUID): List<PermissionDto> {
+
+    suspend fun create(){
+        val record = dsl.newRecord(PERMISSION)
+
+    }
+
+    suspend fun selectPermissionByAdminId(adminId: Uuid): List<PermissionDto> {
         var dto: List<PermissionDto> = emptyList()
-        if(adminId == UUID.fromString("019d5228-5235-768e-8f49-6189373b7191")){
+        if(adminId == Uuid.parse("019d5228-5235-768e-8f49-6189373b7191")){
             dto = withContext(Dispatchers.IO) {
                 dsl.selectFrom(PERMISSION)
                     .orderBy(PERMISSION.SORT.asc())

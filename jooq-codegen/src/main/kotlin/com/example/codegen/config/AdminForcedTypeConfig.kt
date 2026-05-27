@@ -2,7 +2,7 @@ package com.example.codegen.config
 
 import org.jooq.meta.jaxb.ForcedType
 
-object AdminJooqConfig {
+object AdminForcedTypeConfig {
     val forcedTypes = listOf(
         // ---------admin start----------
         ForcedType().apply {
