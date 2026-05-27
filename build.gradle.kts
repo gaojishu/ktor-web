@@ -67,6 +67,8 @@ dependencies {
     implementation(ktorLibs.server.websockets)
     //jwt
     implementation(ktorLibs.server.auth.jwt)
+    //缓存请求
+    implementation(ktorLibs.server.doubleReceive)
 
     //数据库
     implementation(libs.hikaricp)
