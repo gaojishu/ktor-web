@@ -19,7 +19,7 @@ class EnumsController(
             get("/list") {
                 val res = enumsService.list()
                 call.respond(
-                    ApiResult(
+                    ApiResult.ok(
                         data = res
                     )
                 )

@@ -18,7 +18,7 @@ class CaptchaController(
             get("/create") {
                 val res = captchaService.create()
                 call.respond<ApiResult<CaptchaDto>>(
-                    ApiResult(
+                    ApiResult.ok(
                         data = res
                     )
                 )

@@ -20,18 +20,14 @@ class AdminController(private val adminService: AdminService) : KtorAdminControl
 
                 val res = adminService.page(req)
                 call.respond(
-                    ApiResult(
-                        data = res
-                    )
+                    ApiResult.ok(res)
                 )
             }
             get("/{id}") {
                 val id = call.uuidId
                 val res = adminService.detail(id)
                 call.respond(
-                    ApiResult(
-                        data = res
-                    )
+                    ApiResult.ok(res)
                 )
             }
         }

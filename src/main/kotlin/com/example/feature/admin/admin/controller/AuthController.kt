@@ -23,25 +23,23 @@ class AuthController(
 
                 val res = authService.login(req)
                 call.respond(
-                    ApiResult(
-                        data = res
-                    )
+                    ApiResult.ok(res,"登录成功")
                 )
             }
             get("/info") {
                 val auth = call.authentication.principal<CurrentUser>()
                 val res = authService.info(auth!!.id)
                 call.respond(
-                    ApiResult(
-                        data = res
-                    )
+                    ApiResult.ok(res)
                 )
             }
             get("/permission"){
                 val auth = call.authentication.principal<CurrentUser>()
                 val res = authService.permission(auth!!.id)
 
-                call.respond(ApiResult(data = res))
+                call.respond(
+                    ApiResult.ok(res)
+                )
             }
         }
     }

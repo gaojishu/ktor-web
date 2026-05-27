@@ -12,7 +12,7 @@ plugins {
     alias(libs.plugins.koin.compiler.plugin)
 }
 
-// configuration
+// 解决jar包不能正确识别配置文件报错问题
 tasks.shadowJar {
     mergeServiceFiles{
         duplicatesStrategy = DuplicatesStrategy.INCLUDE
@@ -115,7 +115,6 @@ flyway {
     schemas = dbSchemas
     defaultSchema = dbSchemas.first()
     baselineOnMigrate = true
-    baselineVersion = "0"
     cleanDisabled = false
     locations = arrayOf("filesystem:src/main/resources/db/migration")
 }

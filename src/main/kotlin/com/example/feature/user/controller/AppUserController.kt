@@ -20,8 +20,8 @@ fun Route.appUserRoute(
                 val id = call.parameters["id"]!!.toLong()
 
                 appUserService.getUser(id)
-                call.respond<ApiResult<Unit>>(
-                    ApiResult()
+                call.respond(
+                    ApiResult.ok<Unit>()
                 )
             }
         }

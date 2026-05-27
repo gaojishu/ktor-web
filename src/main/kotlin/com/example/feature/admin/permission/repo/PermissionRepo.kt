@@ -1,7 +1,9 @@
 package com.example.feature.admin.permission.repo
 
+import com.example.common.exception.BusinessException
 import com.example.feature.admin.admin.dto.AdminDto
 import com.example.feature.admin.permission.dto.PermissionDto
+import com.example.infra.database.tx
 import com.example.jooq.generate.tables.references.ADMIN
 import com.example.jooq.generate.tables.references.ADMIN_PERMISSION
 import com.example.jooq.generate.tables.references.PERMISSION
@@ -18,9 +20,104 @@ class PermissionRepo(
     private val dsl: DSLContext
 ) {
 
-    suspend fun create(){
-        val record = dsl.newRecord(PERMISSION)
+    suspend fun selectByParentId(parentId: Uuid): List<PermissionDto> {
+        val dto = withContext(Dispatchers.IO) {
+            dsl.selectFrom(PERMISSION)
+                .where(PERMISSION.PARENT_ID.eq(parentId))
+                .fetchInto(PermissionDto::class.java)
+        }
+        return dto
+    }
 
+    suspend fun selectById(id: Uuid): PermissionDto? {
+        val dto = withContext(Dispatchers.IO) {
+            dsl.selectFrom(PERMISSION)
+                .where(PERMISSION.ID.eq(id))
+                .fetchOneInto(PermissionDto::class.java)
+        }
+        return dto
+    }
+
+    suspend fun create(dto: PermissionDto){
+        var parent: PermissionDto? = null
+        if (dto.parentId != null) {
+            parent = withContext(Dispatchers.IO) {
+                selectById(dto.parentId!!)
+            }
+        }
+
+        dsl.tx { ctx ->
+            val record = ctx.newRecord(PERMISSION)
+            record.icon = dto.icon
+            record.name = dto.name
+            record.parentId = dto.parentId
+            record.path = dto.path
+            record.remark = dto.remark
+            record.sort = dto.sort
+            record.type = dto.type
+            record.code = dto.code
+            record.level = parent?.level?.plus(1) ?: 1
+            record.store()
+
+            val newId = record.id!!
+            record.key = parent?.key?.let { "$it-$newId" } ?: newId.toString()
+
+            record.store()
+        }
+
+    }
+
+    suspend fun updateById(dto: PermissionDto){
+        var parent: PermissionDto? = null
+        if (dto.parentId != null) {
+            parent = selectById(dto.parentId!!)
+        }
+
+        val record = withContext(Dispatchers.IO) {
+            dsl.fetchOne(PERMISSION, PERMISSION.ID.eq(dto.id))
+        } ?: throw BusinessException("权限不存在")
+
+        record.icon = dto.icon
+        record.name = dto.name
+        record.parentId = dto.parentId
+        record.path = dto.path
+        record.remark = dto.remark
+        record.sort = dto.sort
+        record.type = dto.type
+        record.code = dto.code
+        record.level = parent?.level?.plus(1) ?: 1
+        record.key = parent?.key?.let { "$it-${record.id}" } ?: record.id.toString()
+
+        record.store()
+    }
+
+    suspend fun list(): List<PermissionDto> {
+        val dto = withContext(Dispatchers.IO) {
+            dsl.selectFrom(PERMISSION)
+                .orderBy(PERMISSION.SORT.asc(), PERMISSION.ID.asc())
+                .fetchInto(PermissionDto::class.java)
+        }
+        return dto
+    }
+
+    suspend fun deleteById(id: Uuid) {
+        val dto = withContext(Dispatchers.IO) {
+            selectById(id)
+        } ?: throw BusinessException("权限不存在")
+
+        val child = withContext(Dispatchers.IO) {
+           selectByParentId(dto.parentId!!)
+        }
+
+        if (child.isNotEmpty()) {
+            throw BusinessException("请先删除子权限")
+        }
+
+        withContext(Dispatchers.IO) {
+            dsl.deleteFrom(PERMISSION)
+                .where(PERMISSION.PARENT_ID.eq(id))
+                .execute()
+        }
     }
 
     suspend fun selectPermissionByAdminId(adminId: Uuid): List<PermissionDto> {
