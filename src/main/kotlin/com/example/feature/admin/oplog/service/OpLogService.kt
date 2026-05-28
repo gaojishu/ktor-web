@@ -14,4 +14,12 @@ class OpLogService(
         val res = opLogRepo.searchPage(req.params, req.page)
         return res
     }
+
+    suspend fun create(
+
+    ){
+        opLogRepo.create(
+
+        )
+    }
 }

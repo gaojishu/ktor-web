@@ -20,13 +20,17 @@ val ApplicationCall.uuidId: Uuid
     }
 
 
-suspend fun ApplicationCall.getRequestParams(): String {
+suspend fun ApplicationCall.getRequestParams(): String? {
 
     val queryParams = request.queryParameters.toMap()
 
     val bodyText = runCatching {
         receiveText()
     }.getOrDefault("")
+
+    if (queryParams.isEmpty() && bodyText.isBlank()) {
+        return null
+    }
 
     return buildJsonObject {
 

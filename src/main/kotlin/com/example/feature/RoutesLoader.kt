@@ -1,15 +1,10 @@
 package com.example.feature
 
-import com.example.common.getRequestParams
+import com.example.feature.admin.oplog.plugin.AdminOpLogPlugin
 import io.ktor.server.application.Application
-import io.ktor.server.application.ApplicationCallPipeline
-import io.ktor.server.application.call
 import io.ktor.server.application.install
 import io.ktor.server.auth.authenticate
 import io.ktor.server.plugins.doublereceive.DoubleReceive
-import io.ktor.server.plugins.origin
-import io.ktor.server.request.httpMethod
-import io.ktor.server.request.path
 import io.ktor.server.response.respondText
 import io.ktor.server.routing.get
 import io.ktor.server.routing.route
@@ -29,28 +24,9 @@ fun Application.installRoutes() {
 
 
         route("/api/admin") {
-
-
             val controllers = getKoin().getAll<KtorAdminController>()
-
             authenticate("admin") {
-
-                intercept(ApplicationCallPipeline.Plugins) {
-                    val path = call.request.path()
-                    val method = call.request.httpMethod.value
-                    val ip = call.request.origin.remoteHost
-                    val params = call.getRequestParams()
-                    println("""
-            ===== admin request =====
-            path=$path
-            method=$method
-            ip=$ip
-            params=$params
-        """.trimIndent())
-                    proceed()
-
-                    println("admin 路由结束")
-                }
+                install(AdminOpLogPlugin)
 
                 controllers.forEach { controller ->
                     with(controller) {

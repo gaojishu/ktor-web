@@ -12,6 +12,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import org.jooq.DSLContext
 import org.koin.core.annotation.Single
+import kotlin.uuid.Uuid
 
 @Single
 class OpLogRepo(
@@ -29,5 +30,27 @@ class OpLogRepo(
         }
 
         return dto
+    }
+
+    suspend fun create(
+        adminId: Uuid? = null,
+        ip: String? = null,
+        method: String? = null,
+        uri: String? = null,
+        params: String? = null,
+        duration: Long? = null,
+        remark: String? = null,
+    ) {
+        withContext(Dispatchers.IO) {
+            dsl.insertInto(OP_LOG)
+                .set(OP_LOG.ADMIN_ID, adminId)
+                .set(OP_LOG.IP, ip)
+                .set(OP_LOG.METHOD, method)
+                .set(OP_LOG.URI, uri)
+                .set(OP_LOG.DURATION, duration)
+                .set(OP_LOG.REMARK, remark)
+                .set(OP_LOG.PARAMS, params)
+                .execute()
+        }
     }
 }
