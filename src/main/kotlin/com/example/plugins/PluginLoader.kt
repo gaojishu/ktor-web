@@ -4,6 +4,7 @@ import com.example.infra.security.configureSecurity
 import io.ktor.server.application.Application
 
 fun Application.installPlugins() {
+
     configureForwardedHeader()
     configureLogging()
     configureSerialization()
@@ -17,5 +18,5 @@ fun Application.installPlugins() {
 
     configureRequestValidation()
     configureSecurity()
-    configureDoubleReceive()
+
 }

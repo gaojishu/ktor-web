@@ -94,7 +94,7 @@ CREATE TABLE IF NOT EXISTS "public"."notice" (
     "admin_id" UUID,                                     -- 发布管理员 ID
     "title" VARCHAR(100) NOT NULL,                       -- 标题
     "content" VARCHAR(200) NOT NULL,                     -- 内容
-    "attachments" JSON,                                  -- 附件列表
+    "attachments" TEXT[],                                  -- 附件列表
     "created_at" TIMESTAMP(6) NOT NULL DEFAULT CURRENT_TIMESTAMP, -- 创建时间
     "updated_at" TIMESTAMP(6) NOT NULL DEFAULT CURRENT_TIMESTAMP  -- 更新时间
 );

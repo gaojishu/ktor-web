@@ -1,0 +1,9 @@
+POST http://{{base_url}}/api/admin/auth/login
+Content-Type: application/json
+
+{
+  "username": "admin123",
+  "password": "Aa123321.",
+  "captchaCode": "1234",
+  "captchaUuid": "7c5b81a2-e64d-4952-ba61-8cf36c6418fa"
+}
