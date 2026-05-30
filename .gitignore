@@ -19,7 +19,7 @@ logs/
 .env.local
 
 # Ktor 默认的配置文件（如果包含明文敏感密码，建议忽略并生成 *.sample 模版）
-# application.conf
+application.conf
 # application.yaml
 
 # ---------------------------------------------------------------------
