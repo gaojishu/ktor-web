@@ -91,6 +91,13 @@ dependencies {
 
     implementation("cn.hutool:hutool-captcha:5.8.44")
     implementation("com.password4j:password4j:1.8.4")
+
+    //excel
+    implementation("org.apache.poi:poi:5.5.1")
+    implementation("org.apache.poi:poi-ooxml:5.5.1")
+    implementation("org.apache.logging.log4j:log4j-to-slf4j:2.26.0")
+
+    implementation("com.aliyun.oss:aliyun-sdk-oss:3.18.5")
 }
 
 tasks.register<JavaExec>("codegen") {
