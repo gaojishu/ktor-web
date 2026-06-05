@@ -15,8 +15,7 @@ import org.koin.core.annotation.Single
 class DatabaseModule {
 
     /**
-     * Hikari DataSource（交给 Koin 管生命周期）
-     * createdAtStart = true 对应注解版 @Single(createdAtStart = true)
+     * Hikari DataSource（由 DatabaseBootstrap 在启动时 eager 拉取）
      */
     @Single
     fun provideDataSource(config: ApplicationConfig): HikariDataSource {
@@ -37,7 +36,7 @@ class DatabaseModule {
     }
 
     /**
-     * Flyway（启动即执行 migration）
+     * Flyway（创建时执行 migration，由 DatabaseBootstrap 在启动时 eager 拉取）
      */
     @Single
     fun provideFlyway(ds: HikariDataSource, config: ApplicationConfig): Flyway {

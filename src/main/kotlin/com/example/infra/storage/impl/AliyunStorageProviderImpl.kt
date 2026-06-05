@@ -11,7 +11,8 @@ class AliyunStorageProviderImpl(
     endpoint: String,
     accessKeyId: String,
     accessKeySecret: String,
-    private val bucketName: String
+    bucket: String,
+    uploadPrefix: String,
 ) : StorageProvider {
 
     private val ossClient = OSSClientBuilder().build(endpoint, accessKeyId, accessKeySecret)
