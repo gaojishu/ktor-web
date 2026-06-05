@@ -31,6 +31,8 @@ koin-ktor = { group = "io.insert-koin", name = "koin-ktor", version.ref = "koin"
 koin-logger-slf4j = { group = "io.insert-koin", name = "koin-logger-slf4j", version.ref = "koin" }
 # annotations
 koin-annotations = { module = "io.insert-koin:koin-annotations", version.ref = "koin" }
+koin-test = { group = "io.insert-koin", name = "koin-test", version.ref = "koin" }
+
 
 [plugins]
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }

@@ -88,7 +88,9 @@ dependencies {
     implementation(libs.koin.ktor)
     implementation(libs.koin.logger.slf4j)
     implementation(libs.koin.annotations)
+    testImplementation(libs.koin.test)
 
+    
     implementation("cn.hutool:hutool-captcha:5.8.44")
     implementation("com.password4j:password4j:1.8.4")
 
