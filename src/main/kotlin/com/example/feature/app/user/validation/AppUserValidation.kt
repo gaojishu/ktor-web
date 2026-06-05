@@ -1,10 +1,9 @@
-package com.example.feature.user.validation
+package com.example.feature.app.user.validation
 
 import com.example.feature.KtorValidator
-import com.example.feature.user.dto.AppUserReq
+import com.example.feature.app.user.dto.AppUserReq
 import io.ktor.server.plugins.requestvalidation.RequestValidationConfig
 import io.ktor.server.plugins.requestvalidation.ValidationResult
-import org.koin.core.annotation.Single
 
 class AppUserValidation : KtorValidator { // 继承接口，改为 class
 

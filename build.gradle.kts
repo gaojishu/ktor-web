@@ -99,7 +99,9 @@ dependencies {
     implementation("org.apache.poi:poi-ooxml:5.5.1")
     implementation("org.apache.logging.log4j:log4j-to-slf4j:2.26.0")
 
+    //阿里云
     implementation("com.aliyun.oss:aliyun-sdk-oss:3.18.5")
+    implementation("com.aliyun:dysmsapi20170525:4.5.1")
 }
 
 tasks.register<JavaExec>("codegen") {

@@ -43,7 +43,9 @@ class AuthService(
         )
     }
 
-    suspend fun logout() {}
+    suspend fun logout() {
+
+    }
 
     suspend fun permission(adminId: Uuid): List<PermissionDto> {
         val dto = permissionRepo.selectPermissionByAdminId(adminId)

@@ -254,11 +254,19 @@ interface KtorAdminController {
 ```hocon
 jwt {
   admin {
-    secret, issuer, expiresIn, audience, realm
+    secret = "..."
+    issuer = "..."
+    expiresIn = 3600
+    audience = "admin"
+    realm = "admin"
     excludePaths = ["/api/admin/admin/info", "/admin/login"]
   }
   app {
-    secret, issuer, expiresIn, audience, realm
+    secret = "..."
+    issuer = "..."
+    expiresIn = 3600
+    audience = "app"
+    realm = "app"
     excludePaths = ["/app/register", "/app/public"]
   }
 }
@@ -325,11 +333,11 @@ data class ApiResult<T>(
 
 | 版本 | 文件 | 内容 |
 |------|------|------|
-| V1.0.0 | `V1_0_0__init.sql` | 公共函数 `set_updated_at`、触发器工厂 |
-| V1.0.1 | `V1_0_1__admin_init.sql` | admin、permission、role、files、notice、op_log 等表 |
-| V1.0.2 | `V1_0_2__admin_init_batch.sql` | 批量初始化数据 |
-| V1.0.3 | `V1_0_3__admin_config_init.sql` | config 配置表 |
-| V1.0.4–V1.0.10 | `V1_0_4~10__admin_permission_*.sql` | 各模块权限种子数据 |
+| V1.0.0 | `V1.0.0__init.sql` | 公共函数 `set_updated_at`、触发器工厂 |
+| V1.0.1 | `V1.0.1__admin_init.sql` | admin、permission、role、files、notice、op_log 等表 |
+| V1.0.2 | `V1.0.2__admin_init_batch.sql` | 批量初始化数据 |
+| V1.0.3 | `V1.0.3__admin_config_init.sql` | config 配置表 |
+| V1.0.4–V1.0.10 | `V1.0.4~10__admin_permission_*.sql` | 各模块权限种子数据 |
 
 ### 核心数据表
 
@@ -468,9 +476,48 @@ feature/admin/<module>/
 ktor.deployment.port = 8001
 ktor.deployment.host = "0.0.0.0"
 
-database { jdbcUrl, username, password, schemas, pool 参数 }
-redis    { host, port, password, database, pool 参数 }
-jwt      { admin { ... }, app { ... } }
+database {
+  jdbcUrl = "..."
+  username = "..."
+  password = "..."
+  schemas = ["public"]
+  maximumPoolSize = 10
+  minimumIdle = 2
+  idleTimeout = 30000
+  maxLifetime = 1800000
+  connectionTimeout = 30000
+}
+
+redis {
+  host = "127.0.0.1"
+  port = 6379
+  password = null
+  database = 0
+  pool {
+    maxTotal = 64
+    maxIdle = 10
+    minIdle = 2
+  }
+}
+
+jwt {
+  admin {
+    secret = "..."
+    issuer = "..."
+    expiresIn = 3600
+    audience = "admin"
+    realm = "admin"
+    excludePaths = ["..."]
+  }
+  app {
+    secret = "..."
+    issuer = "..."
+    expiresIn = 3600
+    audience = "app"
+    realm = "app"
+    excludePaths = ["..."]
+  }
+}
 ```
 
 ### `gradle.properties`（构建时）
