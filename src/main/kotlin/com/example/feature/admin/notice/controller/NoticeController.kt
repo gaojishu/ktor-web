@@ -16,7 +16,7 @@ class NoticeController(
     private val noticeService: NoticeService,
 ): KtorAdminController {
     override fun Route.registerRoutes() {
-        route("/oplog") {
+        route("/notice") {
             post("/page"){
                 val req = call.receive<NoticePageReq>()
                 val res = noticeService.page(req)

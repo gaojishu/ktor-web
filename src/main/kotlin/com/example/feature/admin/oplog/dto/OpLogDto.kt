@@ -14,3 +14,15 @@ data class OpLogDto(
     var duration: Long? = null,
     var remark: String? = null,
 ): BaseDto()
+
+
+
+@Serializable
+data class OpLogQueryParams(
+    val id: Uuid? = null,
+    val method: String? = null,
+
+    val createdAt: List<String> = listOf(),
+    val updatedAt: List<String> = listOf(),
+)
+

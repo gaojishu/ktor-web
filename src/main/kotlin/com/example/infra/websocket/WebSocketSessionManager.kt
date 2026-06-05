@@ -34,9 +34,8 @@ object WebSocketSessionManager {
             session.outgoing.send(Frame.Text(message))
             true
         } catch (e: Exception) {
-            // 如果发送时报错（可能连接刚断开但还没触发 removeSession），进行清理
             removeSession(userId)
-            throw e
+            false
         }
     }
 }

@@ -1,6 +1,6 @@
 package com.example
 
-import com.example.feature.installRoutes
+import com.example.feature.installModule
 import com.example.plugins.installPlugins
 import io.ktor.server.application.*
 
@@ -10,5 +10,5 @@ fun main(args: Array<String>) {
 
 fun Application.module() {
     installPlugins()
-    installRoutes()
+    installModule()
 }

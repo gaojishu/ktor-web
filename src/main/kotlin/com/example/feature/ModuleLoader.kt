@@ -11,19 +11,24 @@ import io.ktor.server.routing.route
 import io.ktor.server.routing.routing
 import org.koin.ktor.ext.getKoin
 
-fun Application.installRoutes() {
+fun Application.installModule() {
     install(DoubleReceive)
+
+    val subscribers = getKoin().getAll<KtorSubscribe>()
+    subscribers.forEach { subscriber ->
+        subscriber.registerSubscriptions(this)
+    }
 
     routing {
         get("/") {
             call.respondText { "Hello Word!" }
         }
-        route("/api/app") {
+        route("/app") {
 
         }
 
 
-        route("/api/admin") {
+        route("/admin") {
             val controllers = getKoin().getAll<KtorAdminController>()
             authenticate("admin") {
                 install(AdminOpLogPlugin)
@@ -37,7 +42,7 @@ fun Application.installRoutes() {
 
         }
 
-        route("/api/common") {
+        route("/common") {
             val controllers = getKoin().getAll<KtorCommonController>()
 
             controllers.forEach { controller ->

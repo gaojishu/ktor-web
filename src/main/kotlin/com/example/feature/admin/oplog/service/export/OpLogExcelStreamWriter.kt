@@ -1,7 +1,8 @@
-package com.example.feature.admin.oplog.excel
+package com.example.feature.admin.oplog.service.export
 
 import com.example.feature.admin.oplog.dto.OpLogDto
 import kotlinx.coroutines.channels.ReceiveChannel
+import org.apache.poi.ss.usermodel.Sheet
 import org.apache.poi.xssf.streaming.SXSSFSheet
 import org.apache.poi.xssf.streaming.SXSSFWorkbook
 import org.koin.core.annotation.Single
@@ -41,11 +42,11 @@ class OpLogExcelStreamWriter {
             workbook.write(outputStream)
 
             // 显式清理 POI 在 /tmp 目录下产生的磁盘临时碎片
-            workbook.dispose()
+            workbook.close()
         }
     }
 
-    private fun createHeader(sheet: org.apache.poi.ss.usermodel.Sheet) {
+    private fun createHeader(sheet: Sheet) {
         val headerRow = sheet.createRow(0)
         headerRow.createCell(0).setCellValue("ID")
         headerRow.createCell(1).setCellValue("名称")
